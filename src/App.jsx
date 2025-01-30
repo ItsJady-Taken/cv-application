@@ -1,14 +1,23 @@
-//import { useState } from 'react'
-import './App.css'
-import Header from './components/MainBody.jsx'
+import { useState } from 'react'
+import './styles/App.css'
+import Header from './components/Header.jsx'
 import Aside from './components/Aside.jsx'
+import ResumeBody from './components/ResumeBody.jsx';
 function App() {
-
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   return (
     <>
-      <main>
-        <Header />
-        <Aside />
+     <Header />
+      <main className='main-content-container'>
+       
+       
+        <Aside onChangeName={setName} onChangeEmail={setEmail} onChangePhone={setPhone} />
+       
+        <ResumeBody userName={name} userEmail={email} userPhone={phone} />
+  
+        
       </main>
         
     </>

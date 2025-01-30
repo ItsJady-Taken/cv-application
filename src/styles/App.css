@@ -1,0 +1,63 @@
+
+.main-content-container {
+    display: flex;
+    gap: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* --- Aside Style --- */
+.aside {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.custom-input {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.custom-input label {
+margin-bottom: 5px;
+}
+
+.custom-input input {
+padding: 5px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+
+.custom-input input:focus {
+outline: none;
+border-color: #007bff;
+}
+
+/* --- Resume Style --- */
+.resume-container {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.resume-container h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.user-link-info {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
