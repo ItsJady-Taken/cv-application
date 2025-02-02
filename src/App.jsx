@@ -11,13 +11,8 @@ function App() {
     <>
      <Header />
       <main className='main-content-container'>
-       
-       
         <Aside onChangeName={setName} onChangeEmail={setEmail} onChangePhone={setPhone} />
-       
         <ResumeBody userName={name} userEmail={email} userPhone={phone} />
-  
-        
       </main>
         
     </>

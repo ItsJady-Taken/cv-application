@@ -1,7 +1,7 @@
 
 .main-content-container {
-    display: flex;
-    gap: 20px;
+    display: grid;
+   grid-template-columns: 0.5fr 1fr;
 }
 
 .header {
@@ -20,27 +20,65 @@
     border-radius: 5px;
 }
 
+.custom-input-container > p {
+    font-size: 32px;
+    font-weight: lighter;
+    font-style: italic;
+}
+.custom-input-container > p > span {
+    color: rgb(230, 44, 44);
+}
+
 .custom-input {
+    position: relative;
     margin-bottom: 10px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.custom-input label {
-margin-bottom: 5px;
+
+.floating-label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.2s ease-in-out;
+    font-size: 16px;
+    color: #aaa;
+    pointer-events: none;
+  }
+  
+.custom-input input {
+    min-width: 80%;
+    padding: 22px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
 }
 
-.custom-input input {
-padding: 5px;
-border: 1px solid #ccc;
-border-radius: 3px;
+.custom-input.focused .floating-label,
+.custom-input input:not(:placeholder-shown) + .floating-label {
+  top: 8px;
+  font-size: 14px;
+  color: #007bff;
 }
 
 .custom-input input:focus {
 outline: none;
 border-color: #007bff;
 }
+
+.error-message {
+   position: absolute;
+    top: -14px;
+    left: 120px;
+    font-size: 12px;
+    color: red;
+    background: transparent;
+    padding: 2px 5px;
+  }
 
 /* --- Resume Style --- */
 .resume-container {
