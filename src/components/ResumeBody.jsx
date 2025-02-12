@@ -7,6 +7,14 @@ function ResumeBody ({userName, userEmail, userPhone}) {
                 <p>{userEmail || 'name@example.com'}</p>
                 <p>{userPhone || 'Your Phone Number'}</p>
             </div>
+            <div className="skill-qualification-container">
+                <p>skills</p>
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                </ul>
+            </div>
         </section>
     )
 }

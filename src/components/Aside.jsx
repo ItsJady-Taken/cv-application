@@ -1,24 +1,69 @@
 import { useState } from 'react';
 
 
-function CustomInput ({textLabel, inputType, value, onChange, error}) {
+function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
     const [isFocused, setIsFocused] = useState(false);
 
     return (
         <div className={`custom-input ${isFocused || value ? "focused" : ""}`}>
-            <label className='floating-label'>{textLabel}</label>
+            <label htmlFor={idValue} className={`floating-label ${ error ? "label-error" : ""}`}>{textLabel}</label>
              {/* Show error message if exists */}
-           {error && ( <p className="error-message">{error}</p> )}
+           {error && <p className="error-message">{error}</p> }
             
                 
-            <input type={inputType} value={value} onChange={onChange} 
+            <input id={idValue} type={inputType} value={value} onChange={onChange} 
               onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)} />
-            
+              onBlur={() => setIsFocused(false)} 
+              className={error ? 'error' : ''}/>
         </div>
        
     )
  }
+
+function SkillSection() {
+    const [showInput, setShowInput] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const [skillList, setSkillList] = useState([]);
+
+    const handleDisplayInput = () => {
+        setShowInput(!showInput);
+    }
+
+    const handleInputValue = (e) => {
+        setInputValue(e.target.value);
+    }
+
+    const handleAddSkill = (e) => {
+        e.preventDefault();
+        setSkillList([...skillList, inputValue.trim()]);
+        setShowInput(false);
+        setInputValue('');
+    }
+
+    return (
+        <>
+        <button onClick={handleDisplayInput}>Add skill</button>
+        
+        {showInput && 
+        <form onSubmit={handleAddSkill}>
+             <input type="text" value={inputValue} onChange={handleInputValue} placeholder='Add your skill' />
+             <button type='submit'>Add</button>
+             <button type='reset'>Cancel</button>
+        </form>
+           
+        }
+
+        { skillList.length > 0 &&
+            <ul className="skill-list">
+                {skillList.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                ))}
+        </ul>
+        }   
+        </>
+    )       
+}
+
 
 function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
     const [name, setName] = useState('');
@@ -28,12 +73,14 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
     const [nameError, setNameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [phoneError, setPhoneError] = useState('');
+    
+    // const [addSkill, setAddSkill] = usestate('');
 
     //-- Check Validation --//
 
     const checkValidName = (value) => { 
         if (!/^[A-Za-z\s]+$/.test(value)) {
-            setNameError('Name should only contain letters and spaces');
+            setNameError('# Name should only contain letters and spaces');
             return false;
         } else {
             setNameError('');
@@ -42,7 +89,7 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
      }
     const checkValidEmail = (value) => {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-            setEmailError('Invalid email address (username@example.com)');
+            setEmailError('# Invalid email address (username@example.com)');
             return false;
         } else {
             setEmailError('');
@@ -51,10 +98,10 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
     }
     const checkValidPhone = (value) => {
         if (!/^\d{10}$/.test(value)) {
-            setPhoneError('Phone number should be 10 digits');
+            setPhoneError('# Phone number should be 10 digits');
             return false;
         } else if (!/^\d+$/.test(value)) {
-            setPhoneError('Phone number should only contain digits');
+            setPhoneError('# Phone number should only contain digits');
             return false;
         } 
         else {
@@ -67,7 +114,7 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
     const handleNameChange = (e) => {
         if(checkValidName(e.target.value)){
             setName(e.target.value);
-            onChangeName(e.target.value);
+            onChangeName(e.target.value.toUpperCase());
         }
         else{
             onChangeName('');
@@ -96,19 +143,23 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
         
     }
 
-
     return (
         <aside className='aside'>
             <div className="custom-input-container">
                 <p>Personal Information<span>*</span></p>
-                <CustomInput textLabel='Your Full Name' inputType='text' value={name} onChange={handleNameChange}  error={nameError} />
-                <CustomInput textLabel='Your Email' inputType='email' value={email} onChange={handleEmailChange}  error={emailError} />
-                <CustomInput textLabel='Your Phone Number' inputType='tel' value={phone} onChange={handlePhoneChange} error={phoneError} />
+                <CustomInput idValue='name-input' textLabel='Your Full Name' inputType='text' value={name} onChange={handleNameChange}  error={nameError} />
+                <CustomInput idValue='email-input' textLabel='Your Email' inputType='email' value={email} onChange={handleEmailChange}  error={emailError} />
+                <CustomInput idValue='phoneNumber-input' textLabel='Your Phone Number' inputType='tel' value={phone} onChange={handlePhoneChange} error={phoneError} />
             </div>
-           
+            <div className="skill-section-container"> 
+                <p>Skills/Qualification<span>*</span></p>
+                <SkillSection />    
+            </div>
         </aside>  
     )
 }
+
+
 
 
 export default Aside
