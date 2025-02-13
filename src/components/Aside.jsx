@@ -20,7 +20,7 @@ function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
     )
  }
 
-function SkillSection() {
+function SkillSection({allSkillsList}) {
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [skillList, setSkillList] = useState([]);
@@ -34,29 +34,40 @@ function SkillSection() {
     }
 
     const handleAddSkill = (e) => {
-        e.preventDefault();
-        setSkillList([...skillList, inputValue.trim()]);
-        setShowInput(false);
-        setInputValue('');
+        if (inputValue.trim() === '') {
+           return false;
+        }
+        else{
+             e.preventDefault();
+            setSkillList([...skillList, inputValue.trim()]);
+            allSkillsList([...skillList, inputValue.trim()]);
+            setInputValue('');
+        } 
+    }
+
+    const handleRemoveSkill = (removeSkillIndex) => {
+        const updatedSkillList = skillList.filter((_,skill) => skill !== removeSkillIndex);
+        setSkillList(updatedSkillList);
+        allSkillsList(updatedSkillList);
     }
 
     return (
         <>
-        <button onClick={handleDisplayInput}>Add skill</button>
+        <button className='show-input-btn' onClick={handleDisplayInput}>+Add skill</button>
         
         {showInput && 
-        <form onSubmit={handleAddSkill}>
-             <input type="text" value={inputValue} onChange={handleInputValue} placeholder='Add your skill' />
-             <button type='submit'>Add</button>
-             <button type='reset'>Cancel</button>
-        </form>
+            <div className='add-skill-container'>
+                <input id='add-skill-input' className='add-skill-input' type="text" value={inputValue} onChange={handleInputValue} placeholder='Add your skill' />
+                <button className='add-skill-btn' type='button' onClick={handleAddSkill}>Add</button>
+                <button className='cancel-skill-btn' type='button'onClick={()=>{setShowInput(false), setInputValue('')}}>Cancel</button>
+            </div>
            
         }
 
         { skillList.length > 0 &&
-            <ul className="skill-list">
+            <ul className="aside-skill-list">
                 {skillList.map((skill, index) => (
-                    <li key={index}>{skill}</li>
+                    <li key={index}><span>{skill}</span>  <button onClick={()=>handleRemoveSkill(index)}>Remove</button></li>
                 ))}
         </ul>
         }   
@@ -65,7 +76,7 @@ function SkillSection() {
 }
 
 
-function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
+function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -74,9 +85,8 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
     const [emailError, setEmailError] = useState('');
     const [phoneError, setPhoneError] = useState('');
     
-    // const [addSkill, setAddSkill] = usestate('');
 
-    //-- Check Validation --//
+    //-- Check Validation name,email,phone number --//
 
     const checkValidName = (value) => { 
         if (!/^[A-Za-z\s]+$/.test(value)) {
@@ -143,6 +153,11 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
         
     }
 
+    //handle add skills
+    const handleAddSkill = (newSkill) => {
+        skillsList(newSkill);
+    }
+
     return (
         <aside className='aside'>
             <div className="custom-input-container">
@@ -153,7 +168,10 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone }) {
             </div>
             <div className="skill-section-container"> 
                 <p>Skills/Qualification<span>*</span></p>
-                <SkillSection />    
+                <SkillSection allSkillsList={handleAddSkill} />    
+            </div>
+            <div className="experience-section-container">
+                <p>Experience<span>*</span></p>
             </div>
         </aside>  
     )
