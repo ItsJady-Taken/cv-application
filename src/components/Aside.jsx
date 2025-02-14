@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { SkillSection, ExperienceSection } from './asideComponent';
 
 function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
     const [isFocused, setIsFocused] = useState(false);
@@ -20,60 +20,6 @@ function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
     )
  }
 
-function SkillSection({allSkillsList}) {
-    const [showInput, setShowInput] = useState(false);
-    const [inputValue, setInputValue] = useState('');
-    const [skillList, setSkillList] = useState([]);
-
-    const handleDisplayInput = () => {
-        setShowInput(!showInput);
-    }
-
-    const handleInputValue = (e) => {
-        setInputValue(e.target.value);
-    }
-
-    const handleAddSkill = (e) => {
-        if (inputValue.trim() === '') {
-           return false;
-        }
-        else{
-             e.preventDefault();
-            setSkillList([...skillList, inputValue.trim()]);
-            allSkillsList([...skillList, inputValue.trim()]);
-            setInputValue('');
-        } 
-    }
-
-    const handleRemoveSkill = (removeSkillIndex) => {
-        const updatedSkillList = skillList.filter((_,skill) => skill !== removeSkillIndex);
-        setSkillList(updatedSkillList);
-        allSkillsList(updatedSkillList);
-    }
-
-    return (
-        <>
-        <button className='show-input-btn' onClick={handleDisplayInput}>+Add skill</button>
-        
-        {showInput && 
-            <div className='add-skill-container'>
-                <input id='add-skill-input' className='add-skill-input' type="text" value={inputValue} onChange={handleInputValue} placeholder='Add your skill' />
-                <button className='add-skill-btn' type='button' onClick={handleAddSkill}>Add</button>
-                <button className='cancel-skill-btn' type='button'onClick={()=>{setShowInput(false), setInputValue('')}}>Cancel</button>
-            </div>
-           
-        }
-
-        { skillList.length > 0 &&
-            <ul className="aside-skill-list">
-                {skillList.map((skill, index) => (
-                    <li key={index}><span>{skill}</span>  <button onClick={()=>handleRemoveSkill(index)}>Remove</button></li>
-                ))}
-        </ul>
-        }   
-        </>
-    )       
-}
 
 
 function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
@@ -153,7 +99,7 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
         
     }
 
-    //handle add skills
+    //handle adding skills
     const handleAddSkill = (newSkill) => {
         skillsList(newSkill);
     }
@@ -168,10 +114,11 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
             </div>
             <div className="skill-section-container"> 
                 <p>Skills/Qualification<span>*</span></p>
-                <SkillSection allSkillsList={handleAddSkill} />    
+                <SkillSection addSkillToList={handleAddSkill} />    
             </div>
             <div className="experience-section-container">
                 <p>Experience<span>*</span></p>
+                <ExperienceSection />
             </div>
         </aside>  
     )

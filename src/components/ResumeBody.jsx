@@ -14,6 +14,7 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[] }) {
                         <li key={index}>{skill},</li>
                     )) :( 
                         <>
+                            <li>Example:</li>
                             <li>htm,</li>
                             <li>css,</li>
                             <li>javascript,</li>
@@ -23,7 +24,7 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[] }) {
                   }
                </ul>
             </div>
-            <div>
+            <div className="resume-experience-container">
                 <p>Experience:</p>
             </div>
         </section>
