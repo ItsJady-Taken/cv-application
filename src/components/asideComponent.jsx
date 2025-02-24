@@ -59,8 +59,14 @@ function SkillSection({ addSkillToList }) {
 function ExperienceSection() {
     const [show, setShow] = useState(false);
   
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = (e) => {
+      e.preventDefault();
+      setShow(false)
+     };
+    const handleShow = (e) => {
+      e.preventDefault();
+      setShow(true)
+    };
   
     return (
       <>
@@ -72,16 +78,31 @@ function ExperienceSection() {
           <Modal.Header closeButton>
             <Modal.Title>Modal title</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            I will not close if you click outside me. Do not even try to press
-            escape key.
-          </Modal.Body>
-          <Modal.Footer>
-            <button onClick={handleClose}>
-              Close
-            </button>
-            <button>Understood</button>
-          </Modal.Footer>
+          <form>
+            <Modal.Body>
+              
+                <div>
+                  <label htmlFor="companyInput">Enter Company Name</label>
+                  <input name="companyInput" type="text" placeholder='Company Name' />
+                </div>
+                <div>
+                  <label htmlFor="positionInput">Enter Position</label>
+                  <input name="positionInput" type="text" placeholder='Position' />
+                </div>
+                <div>
+                  <label htmlFor="durationStart">Start</label>
+                  <input name="durationStart" type="date" placeholder='Duration' />
+                </div>
+                <div>
+                  <label htmlFor="durationEnd">End</label>
+                  <input name="durationEnd" type="date" placeholder='Duration' />
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <button onClick={handleClose}>Close</button>   
+              <button type='submit' onClick={handleClose}>Understood</button>
+            </Modal.Footer>
+          </form>
         </Modal>
       </>
     );
