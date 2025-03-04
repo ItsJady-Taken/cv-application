@@ -125,6 +125,6 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
 }
 
 
-
+export {CustomInput}
 
 export default Aside

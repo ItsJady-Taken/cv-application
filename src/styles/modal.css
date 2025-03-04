@@ -1,0 +1,9 @@
+.modal-dialog {
+    max-width: 700px;
+}
+
+.modal-body {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
