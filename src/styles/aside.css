@@ -115,49 +115,10 @@
     width: 100%;
 }
 
-.skill-input-container {
-    position: relative;
-    
-}
+.add-skill-container .custom-input {
+    padding: 0;  
 
-.add-skill-input {
-    font-size: 16px;
-    padding: 12px 10px;
-    background-color: transparent;
-    border-radius: 5px;
-    border: 1px solid #888;
 }
-
-.add-skill-label {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-    pointer-events: none;
-    transition: transform 0.2s ease-out;
-}
-
-/* Floating label states */
-.skill-input-container.focused .add-skill-label {
-  transform: translateY(-120%) scale(0.9);
-  top: 14px;
-  left: 8px;
-  font-size: 14px;
-  color: #2196F3; /* Your focus color */
-  background-color: white;
-  padding: 2px;
-}
-
-.add-skill-input:focus {
-    outline: none;
-    border: 1px solid #007bff;
-}
-.add-skill-input:hover {
-    outline: none;
-    border: 1px solid #007bff;
-}
-
 .cancel-skill-btn {
     padding: 8px;
     background-color: rgb(230, 28, 28);
@@ -200,30 +161,6 @@
 
 .aside-skill-list  li > button:hover {
     opacity: 0.5;
-}
-
-/* Width/height of scrollbar */
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-
-/* Track (background) of scrollbar */
-::-webkit-scrollbar-track {
-background: #f0f0f0;
-border-radius: 10px;
-}
-
-/* Thumb (draggable part) of scrollbar */
-::-webkit-scrollbar-thumb {
-background-color: #888;
-border-radius: 10px;
-border: 3px solid #f0f0f0;
-}
-
-/* Thumb on hover */
-::-webkit-scrollbar-thumb:hover {
-background-color: #555;
 }
 
 /* --- Expreience Section Styling --- */

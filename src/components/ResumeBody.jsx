@@ -1,5 +1,5 @@
 
-function ResumeBody ({userName, userEmail, userPhone, skillsList=[] }) {
+function ResumeBody ({userName, userEmail, userPhone, skillsList=[], expInfoList=[]}) {
     return (
         <section className='resume-container'>
             <h1>{userName || 'Your Name'}</h1>
@@ -26,36 +26,61 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[] }) {
             </div>
             <div className="resume-experience-container">
                 <p>Experience:</p>
-                <div>
-                    <p>company/position</p>
-                    <p>duration - end</p>
-                    <ul className="resume-experience-list">
-                  
-                        <li>reason 1</li>
-                        <li>reason 2</li>
-                        <li>reason 3</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>company/position</p>
-                    <p>duration - end</p>
-                    <ul className="resume-experience-list">
-                  
-                        <li>reason 1</li>
-                        <li>reason 2</li>
-                        <li>reason 3</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>company/position</p>
-                    <p>duration - end</p>
-                    <ul className="resume-experience-list">
-                  
-                        <li>reason 1</li>
-                        <li>reason 2</li>
-                        <li>reason 3</li>
-                    </ul>
-                </div>
+                {expInfoList.length > 0 ? expInfoList.map((exp, index) => (
+                    <div key={index} className="resume-experience-item">
+                        <div className="resume-experience-info">
+                            <p>{exp.Company}</p>
+                            <p>{exp.Position}</p>
+                        </div>
+                        <ul className="resume-experience-list">
+                            <li>reason 1</li>
+                            <li>reason 2</li>
+                            <li>reason 3</li>
+                        </ul>
+                    </div>
+                )) : (
+                    <>                    
+                    <div>
+                        <div className="resume-experience-info">
+                            <p>company / position</p>
+                            <p>start - end</p>
+                        </div>
+                        
+                        <ul className="resume-experience-list">
+                            <li>reason 1</li>
+                            <li>reason 2</li>
+                            <li>reason 3</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div className="resume-experience-info">
+                            <p>company / position</p>
+                            <p>start - end</p>
+                        </div>
+                      
+                        <ul className="resume-experience-list">
+                            <li>reason 1</li>
+                            <li>reason 2</li>
+                            <li>reason 3</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div className="resume-experience-info">
+                            <p>company / position</p>
+                            <p>start - end</p>
+                        </div>
+                        
+                        <ul className="resume-experience-list">
+                    
+                            <li>reason 1</li>
+                            <li>reason 2</li>
+                            <li>reason 3</li>
+                        </ul>
+                    </div>
+                </>
+
+                )}
+               
                 
             </div>
         </section>

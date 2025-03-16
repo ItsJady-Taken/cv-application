@@ -12,13 +12,13 @@ function App() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [skillsList, setSkillsList] = useState([]);
-
+  const [expInfoList, setExpInfoList] = useState([]);
   return (
     <>
      <Header />
       <main className='main-content-container'>
-        <Aside onChangeName={setName} onChangeEmail={setEmail} onChangePhone={setPhone} skillsList={setSkillsList} />
-        <ResumeBody userName={name} userEmail={email} userPhone={phone} skillsList={skillsList} />
+        <Aside onChangeName={setName} onChangeEmail={setEmail} onChangePhone={setPhone} skillsList={setSkillsList}  expInfoList={setExpInfoList} />
+        <ResumeBody userName={name} userEmail={email} userPhone={phone} skillsList={skillsList} expInfoList={expInfoList} />
       </main>
         
     </>

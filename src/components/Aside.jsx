@@ -22,7 +22,7 @@ function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
 
 
 
-function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
+function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList, expInfoList }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -104,6 +104,11 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
         skillsList(newSkill);
     }
 
+    //handle adding experience
+    const handleAddExperience = (newExperience) => {
+        expInfoList(newExperience);
+    }
+
     return (
         <aside className='aside'>
             <div className="custom-input-container">
@@ -118,7 +123,7 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList }) {
             </div>
             <div className="experience-section-container">
                 <p>Experience<span>*</span></p>
-                <ExperienceSection />
+                <ExperienceSection addExperienceToList={handleAddExperience} />
             </div>
         </aside>  
     )

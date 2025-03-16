@@ -1,9 +1,16 @@
-.modal-dialog {
-    max-width: 700px;
-}
+/* .modal-dialog {
+    max-width: 900px;
+} */
 
-.modal-body {
+/* .modal-body {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     flex-wrap: wrap;
-}
+} */
+
+/* .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+} */

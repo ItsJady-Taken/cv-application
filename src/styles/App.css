@@ -85,4 +85,14 @@
     font-size: 16px;
 }
 
+.resume-experience-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
 
+.resume-experience-info > p {
+    padding: 0;
+    margin: 0;
+}
