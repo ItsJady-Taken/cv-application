@@ -19,7 +19,7 @@ html ,body {
 }
 
  /* --- Date Input Style --- */
-.form-group {
+.date-form-group {
     width: 100%;
     max-width: 320px;
 }
@@ -34,11 +34,13 @@ html ,body {
 
 .date-input-container {
     position: relative;
+    width: 80%;
+    
 }
 
 .date-input {
     width: 100%;
-    padding: 12px 14px;
+    padding: 18px 20px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 15px;
@@ -108,3 +110,71 @@ border: 3px solid #f0f0f0;
 background-color: #555;
 }
  
+
+.textarea-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background-color: white;
+    transition: box-shadow 0.3s ease;
+    border: #ccc solid 1px;
+}
+
+.textarea-wrapper:focus-within {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.textarea-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 14px;
+    color: #6b7280;
+    pointer-events: none;
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 20px;
+    padding-top: 50px;
+    border: none;
+    border-radius: 12px;
+    background-color: transparent;
+    color: #1f2937;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+    overflow: auto;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.textarea:focus + .textarea-label,
+.textarea:not(:placeholder-shown) + .textarea-label {
+    transform: translateY(-22px) translateX(-5px);
+    font-size: 12px;
+    color: #3b82f6;
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.char-count {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.textarea-buttons {
+    display: flex;
+    gap: 10px;
+}

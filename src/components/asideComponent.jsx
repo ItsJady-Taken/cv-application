@@ -54,7 +54,7 @@ function SkillSection({ addSkillToList }) {
         
         {showInput && 
             <form className="add-skill-container" onSubmit={handleAddSkill}>
-              <CustomInput idValue='add-skill-input' textLabel='Enter A Skill At a Time' inputType='text'
+              <CustomInput idValue='add-skill-input' textLabel='Enter a skill one at a time' inputType='text'
               value={inputValue} onChange={handleInputValue} error={errorMessage} />
               <button className='cancel-skill-btn' type='button'onClick={()=>{setShowInput(false), setInputValue('')}}>Cancel</button>
               
@@ -133,7 +133,7 @@ function ExperienceSection({ addExperienceToList }) {
         {experienceList.length > 0 && 
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
-              <li key={index}>`{experience.Company}- {experience.Position}`</li>
+              <li key={index}>{experience.Company} - {experience.Position}</li>
             ))}
           </ul>
         }
@@ -147,22 +147,23 @@ function ExperienceSection({ addExperienceToList }) {
           <Modal.Body>
             <fieldset className='modal-fieldset'>
               <legend>Your Position And Time In the Company</legend>
-             
-              <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
-              value={CompanyValue} onChange={(e) => setCompanyValue(e.target.value)} />
-            
-            
-              <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
-              value={positionValue} onChange={(e) => setPositionValue(e.target.value)} />
-
-              <div className="date-input-container">
-                <div className="form-group">
+              <div className='modal-text-container'>
+                <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
+                value={CompanyValue} onChange={(e) => setCompanyValue(e.target.value)} />
+              
+    
+                <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
+                value={positionValue} onChange={(e) => setPositionValue(e.target.value)} />
+              </div>
+              
+              <div className="modal-date-container">
+                <div className="date-form-group">
                 <label htmlFor="appointment-date" className="date-input-label">Start Date</label>
                   <div className="date-input-container">
                     <input type="date" id="appointment-date" className="date-input" />
                   </div>
                 </div>
-                <div className="form-group">
+                <div className="date-form-group">
                   <label htmlFor="appointment-date" className="date-input-label">End Date</label>
                   <div className="date-input-container">
                     <input type="date" id="appointment-date" className="date-input" />
@@ -174,8 +175,24 @@ function ExperienceSection({ addExperienceToList }) {
             <fieldset className='modal-fieldset'>
               <legend>Your Controbution</legend>
               <div className="textarea-wrapper">
-                <textarea id="modern-textarea" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
-                <label htmlFor="modern-textarea" className="textarea-label">Your first contribution...</label>
+                <textarea id="contro-textarea-1" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <label htmlFor="contro-textarea-1" className="textarea-label">Your first contribution...</label>
+                <div className="textarea-footer">
+                    <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
+                </div>
+              </div>
+
+              <div className="textarea-wrapper">
+                <textarea id="contro-textarea-2" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <label htmlFor="contro-textarea-2" className="textarea-label">Your second contribution...</label>
+                <div className="textarea-footer">
+                    <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
+                </div>
+              </div>
+
+              <div className="textarea-wrapper">
+                <textarea id="contro-textarea-3" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <label htmlFor="contro-textarea-3" className="textarea-label">Your third contribution...</label>
                 <div className="textarea-footer">
                     <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
                 </div>
