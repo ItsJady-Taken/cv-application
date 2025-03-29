@@ -1,6 +1,10 @@
-/* .modal-dialog {
-    max-width: 900px;
-} */
+.modal-dialog {
+    max-width: 600px;
+}
+
+.modal-form #companyInput {
+    width: 100px;
+}
 
 /* .modal-body {
     display: flex;
@@ -14,3 +18,107 @@
     flex-direction: column;
     gap: 20px;
 } */
+
+/* .form-description {
+
+} */
+
+.textarea-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.textarea-wrapper:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.textarea-wrapper:focus-within {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.textarea-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 14px;
+    color: #6b7280;
+    pointer-events: none;
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 20px;
+    padding-top: 50px;
+    border: none;
+    border-radius: 12px;
+    background-color: transparent;
+    color: #1f2937;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+    overflow: auto;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.textarea:focus + .textarea-label,
+.textarea:not(:placeholder-shown) + .textarea-label {
+    transform: translateY(-22px) translateX(-5px);
+    font-size: 12px;
+    color: #3b82f6;
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.char-count {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.textarea-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancel {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.btn-cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-submit {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #2563eb;
+}

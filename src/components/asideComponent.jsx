@@ -62,11 +62,11 @@ function SkillSection({ addSkillToList }) {
         }
 
         { skillList.length > 0 &&
-            <ul className="aside-skill-list">
+          <ol className="aside-skill-list">
                 {skillList.map((skill, index) => (
                     <li key={index}><span>{skill}</span>  <button onClick={()=>handleRemoveSkill(index)}>Remove</button></li>
                 ))}
-        </ul>
+          </ol>
         }   
     </>
   )       
@@ -76,7 +76,12 @@ function ExperienceSection({ addExperienceToList }) {
   const [CompanyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
   const [experienceList, setExperienceList] = useState([]);
+
+  // display useState
+  const [limitCount, setLimitCount] = useState(0);
+  const maxChars = 200;
   const [show, setShow] = useState(false);
+
   const handleClose = (e) => {
     e.preventDefault();
     setShow(false)
@@ -104,7 +109,20 @@ function ExperienceSection({ addExperienceToList }) {
       setShow(false);
     }
   }
-  
+
+  const handleFirstTextareaLimit = (e) => {
+    setLimitCount(e.target.value.length);
+  }
+
+  const getColor = () => {
+    if (limitCount > maxChars ) {
+      return '#ef4444';
+    }
+    else {
+      return '';
+    }
+  }
+
   return (
     <>
       <button className='show-input-btn' onClick={handleShow}>
@@ -130,30 +148,43 @@ function ExperienceSection({ addExperienceToList }) {
             <fieldset className='modal-fieldset'>
               <legend>Your Position And Time In the Company</legend>
              
-                <CustomInput idValue="companyInputId" textLabel="Company Name" inputType="text" 
-                value={CompanyValue} onChange={(e) => setCompanyValue(e.target.value)} />
-             
-              
-                <CustomInput idValue="positionInputId" textLabel="Position/Title" inputType="text" 
-                value={positionValue} onChange={(e) => setPositionValue(e.target.value)} />
+              <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
+              value={CompanyValue} onChange={(e) => setCompanyValue(e.target.value)} />
             
-              <div className="form-group">
-              <label htmlFor="appointment-date" className="date-input-label">Start Date</label>
-                <div className="date-input-container">
-                  <input type="date" id="appointment-date" className="date-input" />
+            
+              <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
+              value={positionValue} onChange={(e) => setPositionValue(e.target.value)} />
+
+              <div className="date-input-container">
+                <div className="form-group">
+                <label htmlFor="appointment-date" className="date-input-label">Start Date</label>
+                  <div className="date-input-container">
+                    <input type="date" id="appointment-date" className="date-input" />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="appointment-date" className="date-input-label">End Date</label>
+                  <div className="date-input-container">
+                    <input type="date" id="appointment-date" className="date-input" />
+                  </div>
                 </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="appointment-date" className="date-input-label">End Date</label>
-                <div className="date-input-container">
-                  <input type="date" id="appointment-date" className="date-input" />
+            </fieldset>
+
+            <fieldset className='modal-fieldset'>
+              <legend>Your Controbution</legend>
+              <div className="textarea-wrapper">
+                <textarea id="modern-textarea" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <label htmlFor="modern-textarea" className="textarea-label">Your first contribution...</label>
+                <div className="textarea-footer">
+                    <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
                 </div>
               </div>
             </fieldset>
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={handleClose}>Close</button>   
-            <button type='submit'>Understood</button>
+            <button onClick={handleClose} className="btn btn-cancel">Close</button>   
+            <button type='submit' className="btn btn-submit">Understood</button>
           </Modal.Footer>
         </form>
       </Modal>
