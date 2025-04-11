@@ -10,6 +10,8 @@
 
 .modal-text-container {
     display: flex;
+    flex-direction: column;
+
 }
 .modal-date-container {
     display: flex;

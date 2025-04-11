@@ -30,7 +30,7 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[], expInfoList
                     <div key={index} className="resume-experience-item">
                         <div className="resume-experience-info">
                             <p>{exp.Company} / {exp.Position}</p>
-                            <p>start - end</p>
+                            <p>{exp.StartDate} / {exp.EndDate}</p>
                         </div>
                         <ul className="resume-experience-list">
                             <li>reason 1</li>
@@ -43,7 +43,7 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[], expInfoList
                     <div>
                         <div className="resume-experience-info">
                             <p>company / position</p>
-                            <p>start - end</p>
+                            <p>start / end</p>
                         </div>
                         
                         <ul className="resume-experience-list">
@@ -55,7 +55,7 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[], expInfoList
                     <div>
                         <div className="resume-experience-info">
                             <p>company / position</p>
-                            <p>start - end</p>
+                            <p>start / end</p>
                         </div>
                       
                         <ul className="resume-experience-list">
@@ -67,7 +67,7 @@ function ResumeBody ({userName, userEmail, userPhone, skillsList=[], expInfoList
                     <div>
                         <div className="resume-experience-info">
                             <p>company / position</p>
-                            <p>start - end</p>
+                            <p>start / end</p>
                         </div>
                         
                         <ul className="resume-experience-list">

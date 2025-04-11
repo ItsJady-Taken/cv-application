@@ -18,6 +18,12 @@ function SkillSection({ addSkillToList }) {
       if (value.length > 15) {
           setErrorMessage('# Maximum 15 characters allowed');
       }
+      else if (skillList.includes(value)) {
+          setErrorMessage('# Skill already added');
+      }
+      else if (skillList.length >= 20) {
+          setErrorMessage('# Maximum 20 skills allowed');
+      }
       else {
           setErrorMessage('');
       }
@@ -31,7 +37,7 @@ function SkillSection({ addSkillToList }) {
 
   const handleAddSkill = (e) => {
       e.preventDefault();
-      if (inputValue.trim() === '' || inputValue.length > 15) {
+      if (inputValue.trim() === '' || inputValue.length > 15 || skillList.includes(inputValue) || skillList.length >= 20) {
           return false;
       }
       else{
@@ -54,8 +60,9 @@ function SkillSection({ addSkillToList }) {
         
         {showInput && 
             <form className="add-skill-container" onSubmit={handleAddSkill}>
-              <CustomInput idValue='add-skill-input' textLabel='Enter a skill one at a time' inputType='text'
+              <CustomInput idValue='add-skill-input' textLabel='Add a skill one at a time' inputType='text'
               value={inputValue} onChange={handleInputValue} error={errorMessage} />
+              <button className='add-skill-btn' type='submit'>Add</button>
               <button className='cancel-skill-btn' type='button'onClick={()=>{setShowInput(false), setInputValue('')}}>Cancel</button>
               
             </form>
@@ -73,12 +80,18 @@ function SkillSection({ addSkillToList }) {
 }
 
 function ExperienceSection({ addExperienceToList }) {
-  const [CompanyValue, setCompanyValue] = useState('');
+  const [companyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
+  const [startDateValue, setStartDateValue] = useState('');
+  const [endDateValue, setEndDateValue] = useState('');
   const [experienceList, setExperienceList] = useState([]);
 
+  const [companyError, setCompanyError] = useState('');
+  //const [positionError, setPositionError] = useState('');
   // display useState
   const [limitCount, setLimitCount] = useState(0);
+  const [limitCount2, setLimitCount2] = useState(0);
+  const [limitCount3, setLimitCount3] = useState(0);
   const maxChars = 200;
   const [show, setShow] = useState(false);
 
@@ -91,21 +104,29 @@ function ExperienceSection({ addExperienceToList }) {
     setShow(true)
   };
 
+
   const handleSubmit = (e) => {
      e.preventDefault();
   
-    if (CompanyValue.trim() === '' || positionValue.trim() === '') {
+    if (companyValue.trim() === '' || positionValue.trim() === '') {
+      setCompanyError('# Company name is required');
       return false;
     }
     else {
       const newExperience = {
-      Company: CompanyValue,
+      Company: companyValue,
       Position: positionValue,
+      StartDate: startDateValue,
+      EndDate: endDateValue
       }       
       setExperienceList([...experienceList, newExperience]);
       addExperienceToList([...experienceList, newExperience]);
       setCompanyValue('');
       setPositionValue('');
+      setStartDateValue('');
+      setEndDateValue('');
+
+      setCompanyError('');
       setShow(false);
     }
   }
@@ -114,8 +135,34 @@ function ExperienceSection({ addExperienceToList }) {
     setLimitCount(e.target.value.length);
   }
 
+  const handleSecondTextareaLimit = (e) => {
+    setLimitCount2(e.target.value.length);
+  } 
+
+  const handleThirdTextareaLimit = (e) => {
+    setLimitCount3(e.target.value.length);
+  }
+
   const getColor = () => {
-    if (limitCount > maxChars ) {
+    if (limitCount > maxChars) {
+      return '#ef4444';
+    }
+    else {
+      return '';
+    }
+  }
+
+  const getColor2 = () => {
+     if (limitCount2 > maxChars) {
+      return '#ef4444';
+    }
+    else {
+      return '';
+    }
+  }
+
+  const getColor3 = () => {
+    if (limitCount3 > maxChars) {
       return '#ef4444';
     }
     else {
@@ -133,7 +180,7 @@ function ExperienceSection({ addExperienceToList }) {
         {experienceList.length > 0 && 
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
-              <li key={index}>{experience.Company} - {experience.Position}</li>
+              <li key={index}><span>{experience.Company} - {experience.Position}</span></li>
             ))}
           </ul>
         }
@@ -146,10 +193,10 @@ function ExperienceSection({ addExperienceToList }) {
         <form className='modal-form' onSubmit={handleSubmit}>
           <Modal.Body>
             <fieldset className='modal-fieldset'>
-              <legend>Your Position And Time In the Company</legend>
+              <legend>Fill in youe job title and the time you worked in the company </legend>
               <div className='modal-text-container'>
                 <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
-                value={CompanyValue} onChange={(e) => setCompanyValue(e.target.value)} />
+                value={companyValue} onChange={(e) => setCompanyValue(e.target.value)} error={companyError} />
               
     
                 <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
@@ -160,22 +207,22 @@ function ExperienceSection({ addExperienceToList }) {
                 <div className="date-form-group">
                 <label htmlFor="appointment-date" className="date-input-label">Start Date</label>
                   <div className="date-input-container">
-                    <input type="date" id="appointment-date" className="date-input" />
+                    <input type="date" id="appointment-date" className="date-input" value={startDateValue} onChange={(e) => setStartDateValue(e.target.value)} />
                   </div>
                 </div>
                 <div className="date-form-group">
                   <label htmlFor="appointment-date" className="date-input-label">End Date</label>
                   <div className="date-input-container">
-                    <input type="date" id="appointment-date" className="date-input" />
+                    <input type="date" id="appointment-date" className="date-input" value={endDateValue} onChange={(e) => setEndDateValue(e.target.value)} />
                   </div>
                 </div>
               </div>
             </fieldset>
 
             <fieldset className='modal-fieldset'>
-              <legend>Your Controbution</legend>
+              <legend>Give 3 decriptions of your previous/current job experiences and contributions</legend>
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-1" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <textarea id="contro-textarea-1" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} ></textarea>
                 <label htmlFor="contro-textarea-1" className="textarea-label">Your first contribution...</label>
                 <div className="textarea-footer">
                     <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
@@ -183,18 +230,18 @@ function ExperienceSection({ addExperienceToList }) {
               </div>
 
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-2" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <textarea id="contro-textarea-2" className="textarea" placeholder=" "  onChange={handleSecondTextareaLimit} ></textarea>
                 <label htmlFor="contro-textarea-2" className="textarea-label">Your second contribution...</label>
                 <div className="textarea-footer">
-                    <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
+                    <div className="char-count" style={{ color: getColor2() }}>{limitCount2} / {maxChars} characters</div>
                 </div>
               </div>
 
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-3" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} required></textarea>
+                <textarea id="contro-textarea-3" className="textarea" placeholder=" "  onChange={handleThirdTextareaLimit} ></textarea>
                 <label htmlFor="contro-textarea-3" className="textarea-label">Your third contribution...</label>
                 <div className="textarea-footer">
-                    <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
+                    <div className="char-count" style={{ color: getColor3() }}>{limitCount3} / {maxChars} characters</div>
                 </div>
               </div>
             </fieldset>

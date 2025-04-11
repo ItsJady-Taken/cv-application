@@ -21,7 +21,7 @@
 .custom-input {
     position: relative;
     margin-bottom: 1rem;
-    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -119,6 +119,21 @@
     padding: 0;  
 
 }
+
+.add-skill-btn {
+    padding: 8px;
+    background-color: #43c969;
+    color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.add-skill-btn:hover {
+    opacity: 0.8;
+}
+
 .cancel-skill-btn {
     padding: 8px;
     background-color: rgb(230, 28, 28);
