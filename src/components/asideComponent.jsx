@@ -84,11 +84,13 @@ function ExperienceSection({ addExperienceToList }) {
   const [positionValue, setPositionValue] = useState('');
   const [startDateValue, setStartDateValue] = useState('');
   const [endDateValue, setEndDateValue] = useState('');
+  const [fisrtContri, setFisrtContri] = useState('');
   const [experienceList, setExperienceList] = useState([]);
 
+  // error useState
   const [companyError, setCompanyError] = useState('');
-  //const [positionError, setPositionError] = useState('');
-  // display useState
+  const [positionError, setPositionError] = useState('');
+  // limmit character input
   const [limitCount, setLimitCount] = useState(0);
   const [limitCount2, setLimitCount2] = useState(0);
   const [limitCount3, setLimitCount3] = useState(0);
@@ -101,7 +103,13 @@ function ExperienceSection({ addExperienceToList }) {
     };
   const handleShow = (e) => {
     e.preventDefault();
-    setShow(true)
+    if(experienceList.length >= 5){
+      return false;
+    }
+    else {
+      setShow(true)
+    }
+    
   };
 
 
@@ -110,29 +118,40 @@ function ExperienceSection({ addExperienceToList }) {
   
     if (companyValue.trim() === '' || positionValue.trim() === '') {
       setCompanyError('# Company name is required');
+      setPositionError('# Position / Role is required');
       return false;
     }
     else {
       const newExperience = {
-      Company: companyValue,
-      Position: positionValue,
-      StartDate: startDateValue,
-      EndDate: endDateValue
-      }       
+        Company: companyValue,
+        Position: positionValue,
+        StartDate: startDateValue,
+        EndDate: endDateValue,
+        FirstContribution: fisrtContri,
+
+      }   
+      // add to list   
       setExperienceList([...experienceList, newExperience]);
       addExperienceToList([...experienceList, newExperience]);
+      //reset form input
       setCompanyValue('');
       setPositionValue('');
       setStartDateValue('');
       setEndDateValue('');
+      setFisrtContri('');
 
+      //reset error message
       setCompanyError('');
+      setLimitCount(0);
+      setLimitCount2(0);
+      setLimitCount3(0);
       setShow(false);
     }
   }
 
   const handleFirstTextareaLimit = (e) => {
     setLimitCount(e.target.value.length);
+
   }
 
   const handleSecondTextareaLimit = (e) => {
@@ -172,15 +191,19 @@ function ExperienceSection({ addExperienceToList }) {
 
   return (
     <>
+    <div>
+      <div className='experience-error'></div>
       <button className='show-input-btn' onClick={handleShow}>
           +Add Experience
       </button>
+    </div>
+      
 
       <div>
         {experienceList.length > 0 && 
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
-              <li key={index}><span>{experience.Company} - {experience.Position}</span></li>
+              <li className='aside-experience-item' key={index}><span>{experience.Company} - {experience.Position}</span></li>
             ))}
           </ul>
         }
@@ -193,14 +216,14 @@ function ExperienceSection({ addExperienceToList }) {
         <form className='modal-form' onSubmit={handleSubmit}>
           <Modal.Body>
             <fieldset className='modal-fieldset'>
-              <legend>Fill in youe job title and the time you worked in the company </legend>
+              <legend>Fill in your job title and the time you worked in the company </legend>
               <div className='modal-text-container'>
                 <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
                 value={companyValue} onChange={(e) => setCompanyValue(e.target.value)} error={companyError} />
               
     
-                <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
-                value={positionValue} onChange={(e) => setPositionValue(e.target.value)} />
+                <CustomInput idValue="positionInputId" textLabel="Position / Role" inputType="text" 
+                value={positionValue} onChange={(e) => setPositionValue(e.target.value)} error={positionError} />
               </div>
               
               <div className="modal-date-container">
@@ -222,10 +245,11 @@ function ExperienceSection({ addExperienceToList }) {
             <fieldset className='modal-fieldset'>
               <legend>Give 3 decriptions of your previous/current job experiences and contributions</legend>
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-1" className="textarea" placeholder=" "  onChange={handleFirstTextareaLimit} ></textarea>
+                <textarea id="contro-textarea-1" className="textarea" placeholder=" " value={fisrtContri}  onChange={(e)=>{ setFisrtContri(e.target.value); handleFirstTextareaLimit(e)}} ></textarea>
                 <label htmlFor="contro-textarea-1" className="textarea-label">Your first contribution...</label>
                 <div className="textarea-footer">
                     <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
+                    <div></div>
                 </div>
               </div>
 
