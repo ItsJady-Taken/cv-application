@@ -15,8 +15,8 @@ function SkillSection({ addSkillToList }) {
       }
 
   const handelErrorMessage = (value) => {
-      if (value.length > 15) {
-          setErrorMessage('# Maximum 15 characters allowed');
+      if (value.trim().length > 20) {
+          setErrorMessage('# Maximum 20 characters allowed');
       }
       else if (skillList.includes(value)) {
           setErrorMessage('# Skill already added');
@@ -37,7 +37,7 @@ function SkillSection({ addSkillToList }) {
 
   const handleAddSkill = (e) => {
       e.preventDefault();
-      if (inputValue.trim() === '' || inputValue.length > 15 || skillList.includes(inputValue) || skillList.length >= 20) {
+      if (inputValue.trim() === '' || inputValue.trim().length > 20 || skillList.includes(inputValue) || skillList.length >= 20) {
           return false;
       }
       else{
@@ -62,8 +62,11 @@ function SkillSection({ addSkillToList }) {
             <form className="add-skill-container" onSubmit={handleAddSkill}>
               <CustomInput idValue='add-skill-input' textLabel='Add a skill one at a time' inputType='text'
               value={inputValue} onChange={handleInputValue} error={errorMessage} />
-              <button className='add-skill-btn' type='submit'>Add</button>
-              <button className='cancel-skill-btn' type='button'onClick={()=>{setShowInput(false), setInputValue('')}}>Cancel</button>
+              <div className="add-skill-btn-container">
+                <button className='add-skill-btn' type='submit'>Add</button>
+                <button className='cancel-skill-btn' type='button'onClick={()=>{setShowInput(false), setInputValue('')}}>Cancel</button>
+              
+              </div>
               
             </form>
         }
@@ -85,6 +88,8 @@ function ExperienceSection({ addExperienceToList }) {
   const [startDateValue, setStartDateValue] = useState('');
   const [endDateValue, setEndDateValue] = useState('');
   const [fisrtContri, setFisrtContri] = useState('');
+  const [secondContri, setSecondContri] = useState('');
+  const [thirdContri, setThirdContri] = useState('');
   const [experienceList, setExperienceList] = useState([]);
 
   // error useState
@@ -94,8 +99,14 @@ function ExperienceSection({ addExperienceToList }) {
   const [limitCount, setLimitCount] = useState(0);
   const [limitCount2, setLimitCount2] = useState(0);
   const [limitCount3, setLimitCount3] = useState(0);
-  const maxChars = 200;
+
+  // Texarea error
+  const [fisrtContriError, setFisrtContriError] = useState('');
+  const [secondContriError, setSecondContriError] = useState('');
+  const [thirdContriError, setThirdContriError] = useState('');
+
   const [show, setShow] = useState(false);
+  const maxChars = 200;
 
   const handleClose = (e) => {
     e.preventDefault();
@@ -128,7 +139,8 @@ function ExperienceSection({ addExperienceToList }) {
         StartDate: startDateValue,
         EndDate: endDateValue,
         FirstContribution: fisrtContri,
-
+        SecondContribution: secondContri,
+        ThirdContribution: thirdContri
       }   
       // add to list   
       setExperienceList([...experienceList, newExperience]);
@@ -139,7 +151,8 @@ function ExperienceSection({ addExperienceToList }) {
       setStartDateValue('');
       setEndDateValue('');
       setFisrtContri('');
-
+      setSecondContri('');  
+      setThirdContri('');
       //reset error message
       setCompanyError('');
       setLimitCount(0);
@@ -150,16 +163,36 @@ function ExperienceSection({ addExperienceToList }) {
   }
 
   const handleFirstTextareaLimit = (e) => {
-    setLimitCount(e.target.value.length);
-
+    const noSpaceChar = e.target.value.replace(/\s/g, '').length;
+    setLimitCount(noSpaceChar);
+    if (limitCount >= maxChars) {
+      setFisrtContriError('# Maximum 200 characters allowed');
+    }
+    else {
+      setFisrtContriError('');
+    }
   }
 
   const handleSecondTextareaLimit = (e) => {
-    setLimitCount2(e.target.value.length);
+    const noSpaceChar = e.target.value.replace(/\s/g, '').length;
+    setLimitCount2(noSpaceChar);
+    if (limitCount2 >= maxChars) {
+      setSecondContriError('# Maximum 200 characters allowed');
+    }
+    else {
+      setSecondContriError('');
+    }
   } 
 
   const handleThirdTextareaLimit = (e) => {
-    setLimitCount3(e.target.value.length);
+    const noSpaceChar = e.target.value.replace(/\s/g, '').length;
+    setLimitCount3(noSpaceChar);
+    if (limitCount3 >= maxChars) {
+      setThirdContriError('# Maximum 200 characters allowed');
+    }
+    else {
+      setThirdContriError('');
+    }
   }
 
   const getColor = () => {
@@ -245,34 +278,37 @@ function ExperienceSection({ addExperienceToList }) {
             <fieldset className='modal-fieldset'>
               <legend>Give 3 decriptions of your previous/current job experiences and contributions</legend>
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-1" className="textarea" placeholder=" " value={fisrtContri}  onChange={(e)=>{ setFisrtContri(e.target.value); handleFirstTextareaLimit(e)}} ></textarea>
-                <label htmlFor="contro-textarea-1" className="textarea-label">Your first contribution...</label>
+                <textarea id="contro-textarea-1" className="textarea" placeholder=" " value={fisrtContri}
+                  onChange={(e)=>{ setFisrtContri(e.target.value); handleFirstTextareaLimit(e)}} ></textarea>
+                <label htmlFor="contro-textarea-1" className="textarea-label">Write a description of your first contribution...</label>
                 <div className="textarea-footer">
                     <div className="char-count" style={{ color: getColor() }}>{limitCount} / {maxChars} characters</div>
-                    <div></div>
+                    <div className="textarea-error-message" style={{ color: getColor() }}>{fisrtContriError}</div>
                 </div>
               </div>
 
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-2" className="textarea" placeholder=" "  onChange={handleSecondTextareaLimit} ></textarea>
-                <label htmlFor="contro-textarea-2" className="textarea-label">Your second contribution...</label>
+                <textarea id="contro-textarea-2" className="textarea" placeholder=" " value={secondContri}  onChange={(e)=>{ setSecondContri(e.target.value); handleSecondTextareaLimit(e)}} ></textarea>
+                <label htmlFor="contro-textarea-2" className="textarea-label">Write a description of your second contribution...</label>
                 <div className="textarea-footer">
                     <div className="char-count" style={{ color: getColor2() }}>{limitCount2} / {maxChars} characters</div>
+                    <div className="textarea-error-message" style={{ color: getColor2() }}>{secondContriError}</div>
                 </div>
               </div>
 
               <div className="textarea-wrapper">
-                <textarea id="contro-textarea-3" className="textarea" placeholder=" "  onChange={handleThirdTextareaLimit} ></textarea>
-                <label htmlFor="contro-textarea-3" className="textarea-label">Your third contribution...</label>
+                <textarea id="contro-textarea-3" className="textarea" placeholder=" " value={thirdContri} onChange={(e)=>{setThirdContri(e.target.value); handleThirdTextareaLimit(e)}} ></textarea>
+                <label htmlFor="contro-textarea-3" className="textarea-label">Write a description of your third contribution...</label>
                 <div className="textarea-footer">
                     <div className="char-count" style={{ color: getColor3() }}>{limitCount3} / {maxChars} characters</div>
+                    <div className="textarea-error-message" style={{ color: getColor3()}}>{thirdContriError}</div>
                 </div>
               </div>
             </fieldset>
           </Modal.Body>
           <Modal.Footer>
             <button onClick={handleClose} className="btn btn-cancel">Close</button>   
-            <button type='submit' className="btn btn-submit">Understood</button>
+            <button type='submit' className="btn btn-submit">Save</button>
           </Modal.Footer>
         </form>
       </Modal>

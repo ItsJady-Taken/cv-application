@@ -37,8 +37,8 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         </div>
                         <ul className="resume-experience-list">
                             <li><p>{exp.FirstContribution || '[reason 1]'}</p></li>
-                            <li>reason 2</li>
-                            <li>reason 3</li>
+                            <li><p>{exp.SecondContribution || '[reason 2]'}</p></li>
+                            <li><p>{exp.ThirdContribution || '[reason 3]'}</p></li>
                         </ul>
                     </div>
                 )) : (
