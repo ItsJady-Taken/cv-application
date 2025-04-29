@@ -127,9 +127,16 @@ function ExperienceSection({ addExperienceToList }) {
   const handleSubmit = (e) => {
      e.preventDefault();
   
-    if (companyValue.trim() === '' || positionValue.trim() === '') {
-      setCompanyError('# Company name is required');
-      setPositionError('# Position / Role is required');
+    if (companyValue.trim() === '') {
+
+      setCompanyError('# Fill in your company name');
+      
+      return false;
+    }
+    else if (positionValue.trim() === '') {
+      setPositionError('# Fill in your position / Role');
+    }
+    else if(limitCount > maxChars || limitCount2 > maxChars || limitCount3 > maxChars) {
       return false;
     }
     else {
@@ -145,6 +152,7 @@ function ExperienceSection({ addExperienceToList }) {
       // add to list   
       setExperienceList([...experienceList, newExperience]);
       addExperienceToList([...experienceList, newExperience]);
+      
       //reset form input
       setCompanyValue('');
       setPositionValue('');
@@ -153,8 +161,13 @@ function ExperienceSection({ addExperienceToList }) {
       setFisrtContri('');
       setSecondContri('');  
       setThirdContri('');
+
       //reset error message
       setCompanyError('');
+      setPositionError('');
+     
+      setSecondContriError('');
+      setThirdContriError('');
       setLimitCount(0);
       setLimitCount2(0);
       setLimitCount3(0);
@@ -165,18 +178,18 @@ function ExperienceSection({ addExperienceToList }) {
   const handleFirstTextareaLimit = (e) => {
     const noSpaceChar = e.target.value.replace(/\s/g, '').length;
     setLimitCount(noSpaceChar);
-    if (limitCount >= maxChars) {
+    if(limitCount > maxChars) {
       setFisrtContriError('# Maximum 200 characters allowed');
-    }
+   }
     else {
-      setFisrtContriError('');
+       setFisrtContriError('');
     }
   }
 
   const handleSecondTextareaLimit = (e) => {
     const noSpaceChar = e.target.value.replace(/\s/g, '').length;
     setLimitCount2(noSpaceChar);
-    if (limitCount2 >= maxChars) {
+     if(limitCount2 > maxChars) {
       setSecondContriError('# Maximum 200 characters allowed');
     }
     else {
@@ -187,7 +200,7 @@ function ExperienceSection({ addExperienceToList }) {
   const handleThirdTextareaLimit = (e) => {
     const noSpaceChar = e.target.value.replace(/\s/g, '').length;
     setLimitCount3(noSpaceChar);
-    if (limitCount3 >= maxChars) {
+    if(limitCount3 > maxChars) {
       setThirdContriError('# Maximum 200 characters allowed');
     }
     else {
@@ -236,7 +249,7 @@ function ExperienceSection({ addExperienceToList }) {
         {experienceList.length > 0 && 
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
-              <li className='aside-experience-item' key={index}><span>{experience.Company} - {experience.Position}</span></li>
+              <li className='aside-experience-item' key={index}><span>{experience.Company} - {experience.Position}</span> <ToggleSwitch idValue={index} /></li>
             ))}
           </ul>
         }
@@ -315,7 +328,18 @@ function ExperienceSection({ addExperienceToList }) {
     </>
   );
 }
+ 
+
+function ToggleSwitch({idValue}) {
+  return (
+   
+    <label className="switch">
+        <input type="checkbox" id={idValue} />
+        <span className="slider"></span>
+    </label>
   
+  );
+} 
 
 
 export {SkillSection, ExperienceSection}
