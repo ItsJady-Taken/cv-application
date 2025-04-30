@@ -83,6 +83,11 @@ function SkillSection({ addSkillToList }) {
 }
 
 function ExperienceSection({ addExperienceToList }) {
+  //useState value for experience section aside
+  const [addExpToResume, setAddExpToResume] = useState(true);
+
+
+  // useState value for modal
   const [companyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
   const [startDateValue, setStartDateValue] = useState('');
@@ -92,18 +97,20 @@ function ExperienceSection({ addExperienceToList }) {
   const [thirdContri, setThirdContri] = useState('');
   const [experienceList, setExperienceList] = useState([]);
 
-  // error useState
+  // error useState value for modal
   const [companyError, setCompanyError] = useState('');
   const [positionError, setPositionError] = useState('');
-  // limmit character input
-  const [limitCount, setLimitCount] = useState(0);
-  const [limitCount2, setLimitCount2] = useState(0);
-  const [limitCount3, setLimitCount3] = useState(0);
-
   // Texarea error
   const [fisrtContriError, setFisrtContriError] = useState('');
   const [secondContriError, setSecondContriError] = useState('');
   const [thirdContriError, setThirdContriError] = useState('');
+
+  // limmit character input in modal textarea
+  const [limitCount, setLimitCount] = useState(0);
+  const [limitCount2, setLimitCount2] = useState(0);
+  const [limitCount3, setLimitCount3] = useState(0);
+
+  
 
   const [show, setShow] = useState(false);
   const maxChars = 200;
@@ -123,7 +130,19 @@ function ExperienceSection({ addExperienceToList }) {
     
   };
 
+  // toggle switch diplay experience section
+  const handleAddExpToResume = () => {
+    if(addExpToResume === false) {
+      setAddExpToResume(true);
+    }
+    else {
+      setAddExpToResume(false);
+    }
+    
+    console.log(addExpToResume);
+  }
 
+  // submit modal form
   const handleSubmit = (e) => {
      e.preventDefault();
   
@@ -175,6 +194,8 @@ function ExperienceSection({ addExperienceToList }) {
     }
   }
 
+
+  // limit character function in textarea for modal
   const handleFirstTextareaLimit = (e) => {
     const noSpaceChar = e.target.value.replace(/\s/g, '').length;
     setLimitCount(noSpaceChar);
@@ -208,6 +229,7 @@ function ExperienceSection({ addExperienceToList }) {
     }
   }
 
+  // error color for textarea in modal
   const getColor = () => {
     if (limitCount > maxChars) {
       return '#ef4444';
@@ -249,7 +271,9 @@ function ExperienceSection({ addExperienceToList }) {
         {experienceList.length > 0 && 
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
-              <li className='aside-experience-item' key={index}><span>{experience.Company} - {experience.Position}</span> <ToggleSwitch idValue={index} /></li>
+              <li className='aside-experience-item' key={index}><span>{experience.Company} - {experience.Position}</span> 
+              <ToggleSwitch idValue={index} onChange={handleAddExpToResume} />    </li>
+              
             ))}
           </ul>
         }
@@ -262,13 +286,13 @@ function ExperienceSection({ addExperienceToList }) {
         <form className='modal-form' onSubmit={handleSubmit}>
           <Modal.Body>
             <fieldset className='modal-fieldset'>
-              <legend>Fill in your job title and the time you worked in the company </legend>
+              <legend>Fill in your job title and the date you have spent in the company </legend>
               <div className='modal-text-container'>
                 <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
                 value={companyValue} onChange={(e) => setCompanyValue(e.target.value)} error={companyError} />
               
     
-                <CustomInput idValue="positionInputId" textLabel="Position / Role" inputType="text" 
+                <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
                 value={positionValue} onChange={(e) => setPositionValue(e.target.value)} error={positionError} />
               </div>
               
@@ -290,6 +314,7 @@ function ExperienceSection({ addExperienceToList }) {
 
             <fieldset className='modal-fieldset'>
               <legend>Give 3 decriptions of your previous/current job experiences and contributions</legend>
+              <p style={{ color: '#6c757d', fontStyle: 'italic'}}>Note: Your descriptions must be less than 200 characters</p>
               <div className="textarea-wrapper">
                 <textarea id="contro-textarea-1" className="textarea" placeholder=" " value={fisrtContri}
                   onChange={(e)=>{ setFisrtContri(e.target.value); handleFirstTextareaLimit(e)}} ></textarea>
@@ -330,11 +355,13 @@ function ExperienceSection({ addExperienceToList }) {
 }
  
 
-function ToggleSwitch({idValue}) {
+function ToggleSwitch({idValue, onChange}) {
+
+
+
   return (
-   
     <label className="switch">
-        <input type="checkbox" id={idValue} />
+        <input type="checkbox" id={idValue} onClick={onChange}/>
         <span className="slider"></span>
     </label>
   

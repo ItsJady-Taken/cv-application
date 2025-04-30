@@ -18,7 +18,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                     )) : (
                         <>
                             <li>Example:</li>
-                            <li>htm,</li>
+                            <li>html,</li>
                             <li>css,</li>
                             <li>javascript,</li>
                             <li>react</li>
@@ -32,7 +32,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                 {expInfoList.length > 0 ? expInfoList.map((exp, index) => (
                     <div key={index} className="resume-experience-item">
                         <div className="resume-experience-info">
-                            <p className="resume-experience-tilte">{exp.Company} / {exp.Position}</p>
+                            <p className="resume-experience-tilte"><span className="resume-experience-company-text">{exp.Company} /</span>  <span className="resume-experience-position-text">{exp.Position}</span></p>
                             <p className="resume-experience-date">{exp.StartDate || '[start date'} / {exp.EndDate || 'end date]'}</p>
                         </div>
                         <ul className="resume-experience-list">

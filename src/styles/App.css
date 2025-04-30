@@ -3,7 +3,8 @@
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     gap: 10px;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
 }
 
 .header {
@@ -92,15 +93,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
 }
 
 .resume-experience-info > p {
     padding: 0;
-    margin: 0;
+    margin: 8px 0;
+}
+
+.resume-experience-date {
+    font-size: 14px;
+    font-style: oblique;
 }
 
 .resume-experience-list > li > p {
     white-space: normal;
     word-wrap: break-word;
+    margin-bottom: 8px;
 }
+
+.resume-experience-company-text {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: italic;
+}   
+
+.resume-experience-position-text {
+    font-size: 1em;
+    font-style: oblique;
+}
+
