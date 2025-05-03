@@ -73,6 +73,7 @@
     left: 4px;
     font-size: 12px;
     margin: 0;
+    margin-top: 2px;
     color: red;
     background: transparent;
     padding: 2px 5px;
@@ -166,8 +167,9 @@
     display: flex;
     flex-direction: column;
     padding: 26px;
+    margin-top: 18px;
     gap: 4px;
-    max-height: 200px;
+    max-height: 260px;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative; 
@@ -199,18 +201,51 @@
     flex-direction: column;
     gap: 10px;
     padding: 20px;
-    max-height: 200px;
+    max-height: 360px;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative; 
 }
+
+.aside-experience-list > li {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  
+}
+
+.aside-experience-list > li::before {
+    content: "•";
+    margin-top: 0.3em;          
+    margin-right: 0.5em;   
+}    
+
 .aside-experience-list > li > label {
    position: absolute;
-   right: 2px;
+   right: 14px;
  
 }
 
 .aside-experience-list > li > span{
-    padding: 2px 4px;
-    font-size: 16px;
+    width: 70%;
+    font-size: 16px; 
+    border: 1px solid #e0e0e0;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.aside-experience-list > li > span:hover {
+    cursor: pointer;
+    color: #4a9cf4;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 }

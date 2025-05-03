@@ -110,21 +110,46 @@ function ExperienceSection({ addExperienceToList }) {
   const [limitCount2, setLimitCount2] = useState(0);
   const [limitCount3, setLimitCount3] = useState(0);
 
-  
+  // editing experience index
+ const [editIndex, setEditIndex] = useState(null);
 
+  // const reset all usestate value in modal
+  const clearAll = () => {
+    //reset form input
+    setCompanyValue('');
+    setPositionValue('');
+    setStartDateValue('');
+    setEndDateValue('');
+    setFisrtContri('');
+    setSecondContri('');  
+    setThirdContri('');
+
+    //reset error message
+    setCompanyError('');
+    setPositionError('');
+    setFisrtContriError('');
+    setSecondContriError('');
+    setThirdContriError('');
+    setLimitCount(0);
+    setLimitCount2(0);
+    setLimitCount3(0);
+  }
+  
+  // useState value for displaying the modal
   const [show, setShow] = useState(false);
   const maxChars = 200;
 
   const handleClose = (e) => {
     e.preventDefault();
-    setShow(false)
+    setShow(false);
+    clearAll();
     };
   const handleShow = (e) => {
-    e.preventDefault();
-    if(experienceList.length >= 5){
-      return false;
-    }
+    e?.preventDefault();
+    if(experienceList.length >= 5) return false;
     else {
+      clearAll();
+      setEditIndex(null);
       setShow(true)
     }
     
@@ -145,11 +170,9 @@ function ExperienceSection({ addExperienceToList }) {
   // submit modal form
   const handleSubmit = (e) => {
      e.preventDefault();
-  
-    if (companyValue.trim() === '') {
-
-      setCompanyError('# Fill in your company name');
-      
+    // validation errors
+    if (companyValue.trim() === ''){ 
+      setCompanyError('# Fill in your company name'); 
       return false;
     }
     else if (positionValue.trim() === '') {
@@ -158,6 +181,7 @@ function ExperienceSection({ addExperienceToList }) {
     else if(limitCount > maxChars || limitCount2 > maxChars || limitCount3 > maxChars) {
       return false;
     }
+    // if no error
     else {
       const newExperience = {
         Company: companyValue,
@@ -168,28 +192,21 @@ function ExperienceSection({ addExperienceToList }) {
         SecondContribution: secondContri,
         ThirdContribution: thirdContri
       }   
+      let updatedList;
+      if(editIndex !== null) {
+        updatedList = experienceList.map((exp, index) =>
+          index === editIndex ? newExperience : exp
+        );
+      }
+      else {
+        // CREATE: append new
+        updatedList = [...experienceList, newExperience];
+      }
       // add to list   
-      setExperienceList([...experienceList, newExperience]);
-      addExperienceToList([...experienceList, newExperience]);
+      setExperienceList(updatedList);
+      addExperienceToList(updatedList);
       
-      //reset form input
-      setCompanyValue('');
-      setPositionValue('');
-      setStartDateValue('');
-      setEndDateValue('');
-      setFisrtContri('');
-      setSecondContri('');  
-      setThirdContri('');
-
-      //reset error message
-      setCompanyError('');
-      setPositionError('');
-     
-      setSecondContriError('');
-      setThirdContriError('');
-      setLimitCount(0);
-      setLimitCount2(0);
-      setLimitCount3(0);
+      clearAll();
       setShow(false);
     }
   }
@@ -257,6 +274,25 @@ function ExperienceSection({ addExperienceToList }) {
     }
   }
 
+  // handle edit experience
+  const handleEdit = (editIndex) => {
+  
+    let exp = experienceList[editIndex];
+
+    setCompanyValue(exp.Company);
+    setPositionValue(exp.Position);
+    setStartDateValue(exp.StartDate);
+    setEndDateValue(exp.EndDate);
+    setFisrtContri(exp.FirstContribution);
+    setSecondContri(exp.SecondContribution);
+    setThirdContri(exp.ThirdContribution);
+
+    setEditIndex(editIndex);
+    setShow(true);
+    
+  }
+
+
   return (
     <>
     <div>
@@ -271,8 +307,10 @@ function ExperienceSection({ addExperienceToList }) {
         {experienceList.length > 0 && 
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
-              <li className='aside-experience-item' key={index}><span>{experience.Company} - {experience.Position}</span> 
-              <ToggleSwitch idValue={index} onChange={handleAddExpToResume} />    </li>
+              <li className='aside-experience-item' id={index} key={index}>
+                <span onClick={() => handleEdit(index)}>{experience.Company} - {experience.Position}</span> 
+                <ToggleSwitch idValue={index} onChange={handleAddExpToResume} />   
+              </li>
               
             ))}
           </ul>
@@ -298,15 +336,15 @@ function ExperienceSection({ addExperienceToList }) {
               
               <div className="modal-date-container">
                 <div className="date-form-group">
-                <label htmlFor="appointment-date" className="date-input-label">Start Date</label>
+                <label htmlFor="start-date" className="date-input-label">Start Date</label>
                   <div className="date-input-container">
-                    <input type="date" id="appointment-date" className="date-input" value={startDateValue} onChange={(e) => setStartDateValue(e.target.value)} />
+                    <input type="date" id="start-date" className="date-input" value={startDateValue} onChange={(e) => setStartDateValue(e.target.value)} />
                   </div>
                 </div>
                 <div className="date-form-group">
-                  <label htmlFor="appointment-date" className="date-input-label">End Date</label>
+                  <label htmlFor="end-date" className="date-input-label">End Date</label>
                   <div className="date-input-container">
-                    <input type="date" id="appointment-date" className="date-input" value={endDateValue} onChange={(e) => setEndDateValue(e.target.value)} />
+                    <input type="date" id="end-date" className="date-input" value={endDateValue} onChange={(e) => setEndDateValue(e.target.value)} />
                   </div>
                 </div>
               </div>
@@ -356,9 +394,6 @@ function ExperienceSection({ addExperienceToList }) {
  
 
 function ToggleSwitch({idValue, onChange}) {
-
-
-
   return (
     <label className="switch">
         <input type="checkbox" id={idValue} onClick={onChange}/>
@@ -367,6 +402,7 @@ function ToggleSwitch({idValue, onChange}) {
   
   );
 } 
+
 
 
 export {SkillSection, ExperienceSection}

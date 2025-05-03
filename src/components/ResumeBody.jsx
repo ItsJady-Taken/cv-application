@@ -83,8 +83,6 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                     </>
 
                 )}
-
-
             </div>
         </section>
     )
