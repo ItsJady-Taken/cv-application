@@ -27,10 +27,12 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                     }
                 </ul>
             </div>
-            <div className="resume-experience-container">
+            <div id="resume-experience-container" className="resume-experience-container">
                 <p>Experience:</p>
-                {expInfoList.length > 0 ? expInfoList.map((exp, index) => (
-                    <div key={index} className="resume-experience-item">
+                {expInfoList.length >= 1 ? expInfoList.map((exp, index) => (
+                    exp.ToggleAddExp === true ?(
+                    
+                    <div key={index} id={`resume-experience-item-${index}`} className="resume-experience-item">
                         <div className="resume-experience-info">
                             <p className="resume-experience-tilte"><span className="resume-experience-company-text">{exp.Company} /</span>  <span className="resume-experience-position-text">{exp.Position}</span></p>
                             <p className="resume-experience-date">{exp.StartDate || '[start date'} / {exp.EndDate || 'end date]'}</p>
@@ -41,7 +43,8 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                             <li><p>{exp.ThirdContribution || '[reason 3]'}</p></li>
                         </ul>
                     </div>
-                )) : (
+                
+                    ) : null )) : (
                     <>
                         <div>
                             <div className="resume-experience-info">
@@ -80,10 +83,13 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                                 <li>[reason 3]</li>
                             </ul>
                         </div>
-                    </>
-
-                )}
+                    </> )}
+                   
             </div>
+            <div className="resume-education-container">
+                <p>Education:</p>
+            </div>
+
         </section>
     )
 }

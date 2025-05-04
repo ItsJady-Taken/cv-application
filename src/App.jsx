@@ -13,6 +13,7 @@ function App() {
   const [phone, setPhone] = useState('');
   const [skillsList, setSkillsList] = useState([]);
   const [expInfoList, setExpInfoList] = useState([]);
+  
   return (
     <>
      <Header />

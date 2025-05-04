@@ -83,8 +83,9 @@ function SkillSection({ addSkillToList }) {
 }
 
 function ExperienceSection({ addExperienceToList }) {
+
   //useState value for experience section aside
-  const [addExpToResume, setAddExpToResume] = useState(true);
+
 
 
   // useState value for modal
@@ -109,6 +110,12 @@ function ExperienceSection({ addExperienceToList }) {
   const [limitCount, setLimitCount] = useState(0);
   const [limitCount2, setLimitCount2] = useState(0);
   const [limitCount3, setLimitCount3] = useState(0);
+
+
+  // //prevnt default submit
+  // const handleCom = (e) => {
+  //   e.preventDefault();
+  // }
 
   // editing experience index
  const [editIndex, setEditIndex] = useState(null);
@@ -142,11 +149,14 @@ function ExperienceSection({ addExperienceToList }) {
   const handleClose = (e) => {
     e.preventDefault();
     setShow(false);
-    clearAll();
-    };
+  };
+
   const handleShow = (e) => {
-    e?.preventDefault();
-    if(experienceList.length >= 5) return false;
+    e.preventDefault();
+    if(experienceList.length === 5){ 
+      alert('You can not add more than 5 experience');
+      return false;
+    }
     else {
       clearAll();
       setEditIndex(null);
@@ -154,18 +164,6 @@ function ExperienceSection({ addExperienceToList }) {
     }
     
   };
-
-  // toggle switch diplay experience section
-  const handleAddExpToResume = () => {
-    if(addExpToResume === false) {
-      setAddExpToResume(true);
-    }
-    else {
-      setAddExpToResume(false);
-    }
-    
-    console.log(addExpToResume);
-  }
 
   // submit modal form
   const handleSubmit = (e) => {
@@ -190,13 +188,15 @@ function ExperienceSection({ addExperienceToList }) {
         EndDate: endDateValue,
         FirstContribution: fisrtContri,
         SecondContribution: secondContri,
-        ThirdContribution: thirdContri
+        ThirdContribution: thirdContri,
+        ToggleAddExp: false
       }   
       let updatedList;
       if(editIndex !== null) {
         updatedList = experienceList.map((exp, index) =>
           index === editIndex ? newExperience : exp
         );
+        addExperienceToList(updatedList);
       }
       else {
         // CREATE: append new
@@ -204,13 +204,36 @@ function ExperienceSection({ addExperienceToList }) {
       }
       // add to list   
       setExperienceList(updatedList);
-      addExperienceToList(updatedList);
+      
       
       clearAll();
       setShow(false);
     }
   }
 
+  // toggle switch diplay experience section
+  const handleAddExpToResume = (index) => {
+    let updatedList = [...experienceList];
+    
+    if(updatedList[index].ToggleAddExp === false) {
+      updatedList[index].ToggleAddExp = true;
+      setExperienceList(updatedList);
+      addExperienceToList(updatedList);
+    }
+    else {
+      updatedList[index].ToggleAddExp = false;
+      setExperienceList(updatedList);
+      addExperienceToList(updatedList.filter((_, i) => i !== index));
+    }  
+  } 
+
+  const handleToggleStyle = (index) => {
+    let updatedList = [...experienceList];
+    if(updatedList[index].ToggleAddExp === false) {
+      return 'line-through';
+    }
+    
+  }
 
   // limit character function in textarea for modal
   const handleFirstTextareaLimit = (e) => {
@@ -304,14 +327,13 @@ function ExperienceSection({ addExperienceToList }) {
       
 
       <div>
-        {experienceList.length > 0 && 
+        {experienceList.length > 0 &&
           <ul className="aside-experience-list">
             {experienceList.map((experience, index) => (
               <li className='aside-experience-item' id={index} key={index}>
-                <span onClick={() => handleEdit(index)}>{experience.Company} - {experience.Position}</span> 
-                <ToggleSwitch idValue={index} onChange={handleAddExpToResume} />   
-              </li>
-              
+                <span onClick={() => handleEdit(index)} style={{textDecoration: handleToggleStyle(index)}}>{experience.Company} - {experience.Position}</span> 
+                <ToggleSwitch idValue={index} onChange={() => handleAddExpToResume(index)} isChecked={experience.ToggleAddExp} />   
+              </li>     
             ))}
           </ul>
         }
@@ -319,39 +341,42 @@ function ExperienceSection({ addExperienceToList }) {
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header>
-          <Modal.Title>Fill in your previous/current job experience</Modal.Title>
+          <Modal.Title>Your job experience and contributions</Modal.Title>
         </Modal.Header>
         <form className='modal-form' onSubmit={handleSubmit}>
+         
           <Modal.Body>
             <fieldset className='modal-fieldset'>
-              <legend>Fill in your job title and the date you have spent in the company </legend>
+              <legend>Enter your job title and the length of time you&apos;ve been with the company</legend>
               <div className='modal-text-container'>
-                <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name" inputType="text" 
-                value={companyValue} onChange={(e) => setCompanyValue(e.target.value)} error={companyError} />
+                <CustomInput className='company-input' idValue="companyInputId" textLabel="Company Name (required)" inputType="text" 
+                value={companyValue} onChange={(e) => setCompanyValue(e.target.value)} error={companyError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
               
     
-                <CustomInput idValue="positionInputId" textLabel="Position / Title" inputType="text" 
-                value={positionValue} onChange={(e) => setPositionValue(e.target.value)} error={positionError} />
+                <CustomInput idValue="positionInputId" textLabel="Position / Title (required)" inputType="text" 
+                value={positionValue} onChange={(e) => setPositionValue(e.target.value)} error={positionError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
               </div>
               
               <div className="modal-date-container">
                 <div className="date-form-group">
                 <label htmlFor="start-date" className="date-input-label">Start Date</label>
                   <div className="date-input-container">
-                    <input type="date" id="start-date" className="date-input" value={startDateValue} onChange={(e) => setStartDateValue(e.target.value)} />
+                    <input type="date" id="start-date" className="date-input" value={startDateValue} 
+                    onChange={(e) => setStartDateValue(e.target.value)} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
                   </div>
                 </div>
                 <div className="date-form-group">
                   <label htmlFor="end-date" className="date-input-label">End Date</label>
                   <div className="date-input-container">
-                    <input type="date" id="end-date" className="date-input" value={endDateValue} onChange={(e) => setEndDateValue(e.target.value)} />
+                    <input type="date" id="end-date" className="date-input" value={endDateValue} 
+                    onChange={(e) => setEndDateValue(e.target.value)} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
                   </div>
                 </div>
               </div>
             </fieldset>
 
             <fieldset className='modal-fieldset'>
-              <legend>Give 3 decriptions of your previous/current job experiences and contributions</legend>
+              <legend>Give 3 decriptions of your previous/current job experience and contributions</legend>
               <p style={{ color: '#6c757d', fontStyle: 'italic'}}>Note: Your descriptions must be less than 200 characters</p>
               <div className="textarea-wrapper">
                 <textarea id="contro-textarea-1" className="textarea" placeholder=" " value={fisrtContri}
@@ -393,10 +418,10 @@ function ExperienceSection({ addExperienceToList }) {
 }
  
 
-function ToggleSwitch({idValue, onChange}) {
+function ToggleSwitch({idValue, onChange, isChecked}) {
   return (
     <label className="switch">
-        <input type="checkbox" id={idValue} onClick={onChange}/>
+        <input type="checkbox" id={idValue} onClick={onChange} checked={isChecked} readOnly/>
         <span className="slider"></span>
     </label>
   

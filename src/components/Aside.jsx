@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SkillSection, ExperienceSection } from './asideComponent';
 
-function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
+function CustomInput ({idValue, textLabel, inputType, value, onChange, error, onKeyDown}) {
     const [isFocused, setIsFocused] = useState(false);
 
     return (
@@ -14,7 +14,8 @@ function CustomInput ({idValue, textLabel, inputType, value, onChange, error}) {
             <input id={idValue} type={inputType} value={value} onChange={onChange} 
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)} 
-              className={error ? 'error' : ''}/>
+              className={error ? 'error' : ''}
+              onKeyDown={onKeyDown}/>
         </div>
        
     )

@@ -74,7 +74,9 @@
 }
 
 .skill-qualification-container > p,
-.resume-experience-container > p {
+.resume-experience-container > p,
+.resume-education-container > p {
+    margin: 8px 0;
     font-size: 18px;
     font-style: oblique;
     font-weight: bold;
@@ -91,15 +93,28 @@
     font-size: 16px;
 }
 
+/* --- Experience Style --- */
+
+.resume-experience-container {
+    margin-bottom: 10px;
+    border-bottom: 2px solid #1a1818;
+}
+
+
 .resume-experience-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    top: 14px;
 }
 
 .resume-experience-info > p {
     padding: 0;
-    margin: 8px 0;
+}
+
+.resume-experience-list {
+    margin-bottom: 6px ;
 }
 
 .resume-experience-date {
@@ -110,7 +125,7 @@
 .resume-experience-list > li > p {
     white-space: normal;
     word-wrap: break-word;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 .resume-experience-company-text {
@@ -123,4 +138,6 @@
     font-size: 1em;
     font-style: oblique;
 }
+
+/* --- Education Style --- */
 
