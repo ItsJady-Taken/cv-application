@@ -148,18 +148,18 @@
 @media screen and (max-width: 768px) {
     .main-content-container {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 20px;
+        padding: 0 10px;
         justify-content: center;
         align-items: flex-start;
-        height: 100vh;
+        min-height: auto;
+        height: auto;
     }
     .resume-container {
         margin-left: 0;
         margin-top: 0;
-        margin: 4px;
         width: 100%; /* Take full width */
         max-width: none; /* Remove max-width restriction */
-        /* padding: 15px; Adjust padding for mobile */
     }
     
     .header {

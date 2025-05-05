@@ -265,6 +265,7 @@
     .aside {
         padding: 15px; /* Adjust padding for mobile */
         max-width: none; /* Remove max-width restriction */
+        max-height: auto;
     }
 
     /* Adjust font sizes or padding for mobile if needed */
