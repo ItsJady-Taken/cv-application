@@ -3,7 +3,9 @@
 .aside {
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    height: 100%;
+    min-height: 100vh;
+    max-width: 600px; /* Keep max-width */
+    width: 100%; /* Allow it to take full width up to max-width */
     max-width: 600px;
 }
 
@@ -28,10 +30,12 @@
 .custom-input {
     position: relative;
     margin-bottom: 1rem;
-    max-width: 100%;
+    /* max-width: 100%; */
+    width: calc(100% - 16px);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    box-sizing: border-box;
 }
 
 
@@ -71,8 +75,8 @@
 
 .error-message {
     position: absolute;
-    top: -18px; /* Adjust as needed */
-    left: 4px;
+    top: -16px; /* Adjust as needed */
+    left: 8px;
     font-size: 12px;
     margin: 0;
     margin-top: 2px;
@@ -103,6 +107,7 @@
     font-size: 18px;
     font-weight: bold;
     transform: translate(0, 0);
+    display: inline-block;
 }
 
 .show-input-btn:hover {
@@ -111,15 +116,18 @@
 }
 
 .show-input-btn:active {
-    transform: translate(0, 5px);
+    transform: translate(0, 2px);
 }
 
 .add-skill-container {
     display: flex;
     justify-content: flex-start;
- 
     flex-wrap: wrap;
-   
+}
+
+.add-skill-container .custom-input {
+    margin-bottom: 0; /* Remove bottom margin if gap is used */
+    width: 100%; /* Allow input to take full width */
 }
 
 .add-skill-btn-container {
@@ -251,4 +259,65 @@
     background-color: #f0f0f0;
     border-radius: 5px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media  screen and (max-width: 768px) {
+    .aside {
+        padding: 15px; /* Adjust padding for mobile */
+        max-width: none; /* Remove max-width restriction */
+    }
+
+    /* Adjust font sizes or padding for mobile if needed */
+    .custom-input-container > p,
+    .skill-section-container > p,
+    .experience-section-container > p {
+        font-size: 24px;
+    }
+
+    .custom-input input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .floating-label {
+        font-size: 14px;
+        left: 12px;
+    }
+
+    .custom-input.focused .floating-label {
+        font-size: 10px;
+    }
+
+    .show-input-btn {
+        font-size: 16px;
+    }
+
+    .add-skill-btn,
+    .cancel-skill-btn {
+        width: 60px;
+        font-size: 0.9em;
+    }
+
+    .aside-skill-list > li {
+        font-size: 14px;
+        padding-right: 30px; /* Adjust padding for smaller button */
+    }
+
+    .aside-skill-list li > button {
+        right: 4px;
+        font-size: 12px;
+    }
+
+    .aside-experience-list > li {
+         padding-right: 40px; /* Ensure space for toggle */
+    }
+
+    .aside-experience-list > li > span {
+        font-size: 14px;
+        padding-right: 30px; /* Adjust padding for smaller toggle */
+    }
+
+     .aside-experience-list > li > label {
+        right: 8px; /* Adjust toggle position */
+     }
 }

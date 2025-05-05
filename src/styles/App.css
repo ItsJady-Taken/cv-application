@@ -143,3 +143,71 @@
 
 /* --- Education Style --- */
 
+
+
+@media screen and (max-width: 768px) {
+    .main-content-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+    }
+    .resume-container {
+        margin-left: 0;
+        margin-top: 0;
+        margin: 4px;
+        width: 100%; /* Take full width */
+        max-width: none; /* Remove max-width restriction */
+        /* padding: 15px; Adjust padding for mobile */
+    }
+    
+    .header {
+        flex-direction: column; /* Stack header items */
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .user-link-info {
+        flex-direction: column; /* Stack link info items */
+        align-items: center;
+        gap: 5px;
+    }
+
+    .resume-experience-list > li > p {
+        /* Ensure wrapping properties are maintained or adjusted if needed */
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        max-width: 100%;
+        /* Add any mobile-specific adjustments here if necessary */
+    }
+
+    /* Adjust font sizes or padding for mobile if needed */
+    .resume-container .user-name h1 {
+        font-size: 30px;
+    }
+
+    .user-link-info p {
+        font-size: 14px;
+    }
+
+    .skill-qualification-container > p,
+    .resume-experience-container > p,
+    .resume-education-container > p {
+        font-size: 16px;
+    }
+
+    .resume-skill-list li {
+        font-size: 14px;
+    }
+
+    .resume-experience-company-text,
+    .resume-experience-position-text {
+         font-size: 0.9em;
+    }
+
+    .resume-experience-date {
+        font-size: 12px;
+    }
+}
