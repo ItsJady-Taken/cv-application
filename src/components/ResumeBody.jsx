@@ -77,7 +77,30 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                             </div>
 
                             <ul className="resume-experience-list">
+                                <li>[reason 1]</li>
+                                <li>[reason 2]</li>
+                                <li>[reason 3]</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div className="resume-experience-info">
+                                <p>[company / position]</p>
+                                <p>[start date / end date]</p>
+                            </div>
 
+                            <ul className="resume-experience-list">
+                                <li>[reason 1]</li>
+                                <li>[reason 2]</li>
+                                <li>[reason 3]</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div className="resume-experience-info">
+                                <p>[company / position]</p>
+                                <p>[start date / end date]</p>
+                            </div>
+
+                            <ul className="resume-experience-list">
                                 <li>[reason 1]</li>
                                 <li>[reason 2]</li>
                                 <li>[reason 3]</li>
@@ -88,6 +111,14 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
             </div>
             <div className="resume-education-container">
                 <p>Education:</p>
+                <div className="resume-education-info">
+                    <p>[University Name || University Location]</p>
+                    <p>[start date / end date]</p>
+                </div>
+                <div className="resume-degrees-info">
+                    <p>[Degrees]</p>
+                    <p><strong>Relevant Coursework:</strong>[List of relevant coursework]</p>
+                </div>
             </div>
 
         </section>

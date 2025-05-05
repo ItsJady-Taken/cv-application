@@ -3,6 +3,8 @@
 .aside {
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    max-width: 600px;
 }
 
 .skill-section-container,

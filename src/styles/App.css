@@ -5,6 +5,7 @@
     gap: 10px;
     justify-content: center;
     align-items: flex-start;
+    height: 100vh;
 }
 
 .header {
@@ -34,8 +35,9 @@
     margin-top: 18px;
     margin-left: 34px;
     padding: 18px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     max-width: 800px;
+    margin-bottom: 50px;
 
 }
 
@@ -106,7 +108,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    top: 14px;
+    top: 12px;
 }
 
 .resume-experience-info > p {
