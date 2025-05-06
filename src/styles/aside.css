@@ -3,9 +3,10 @@
 .aside {
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    min-height: 100vh;
     max-width: 600px; /* Keep max-width */
     width: 100%; /* Allow it to take full width up to max-width */
+    min-height: 100%;
+    /* height: auto; */
 }
 
 .skill-section-container,
@@ -188,13 +189,14 @@
 }
 
 .aside-skill-list > li {
-    padding: 2px 4px;
+    padding: 2px 8px;
     font-size: 16px;
+    border-bottom:1px solid #e0e0e0;
 }
 
 .aside-skill-list li > button  {
     position: absolute;
-    right: 2px;
+    right: 18px;
     padding: 2px 4px;
     background-color: transparent;
     border: none;

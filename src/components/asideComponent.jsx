@@ -84,10 +84,6 @@ function SkillSection({ addSkillToList }) {
 
 function ExperienceSection({ addExperienceToList }) {
 
-  //useState value for experience section aside
-
-
-
   // useState value for modal
   const [companyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
@@ -340,7 +336,7 @@ function ExperienceSection({ addExperienceToList }) {
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header>
-          <Modal.Title>Your job experience and contributions</Modal.Title>
+          <Modal.Title>YOUR JOB EXPERIENCE AND CONTRIBUTIONS</Modal.Title>
         </Modal.Header>
         <form className='modal-form' onSubmit={handleSubmit}>
          
@@ -417,14 +413,68 @@ function ExperienceSection({ addExperienceToList }) {
 }
  
 function EducationSection() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
   return (
     <>
-       <div>
-      <div className='experience-error'></div>
-      <button className='show-input-btn' >
+    <div>
+      <button className='show-input-btn' onClick={handleShow} >
           +Add Education
       </button>
     </div>
+
+
+    <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>YOUR EDUCATION DETAILS</Modal.Title>
+        </Modal.Header>
+        <form className='modal-form'>
+          <Modal.Body>
+            <fieldset className='modal-fieldset'>
+              <legend>Education Details</legend>
+              <CustomInput idValue="school-input" textLabel="School Name" inputType="text" />
+              <CustomInput idValue="field-input" textLabel="University Location" inputType="text" />
+              <CustomInput idValue="degree-input" textLabel="Degree" inputType="text" />
+
+                
+              <div className="modal-date-container">
+                  <div className="date-form-group">
+                  <label htmlFor="start-date" className="date-input-label">Start Date</label>
+                    <div className="date-input-container">
+                      <input type="date" id="start-date" className="date-input" 
+                      onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
+                    </div>
+                  </div>
+                  <div className="date-form-group">
+                    <label htmlFor="end-date" className="date-input-label">End Date</label>
+                    <div className="date-input-container">
+                      <input type="date" id="end-date" className="date-input" 
+                      onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset className='modal-fieldset'>
+                <legend>Contribution Details</legend>
+                <div className="textarea-wrapper">
+                  <textarea id="contro-textarea-3" className="textarea" placeholder=" "></textarea>
+                  <label htmlFor="contro-textarea-3" className="textarea-label">Write a description of your third contribution...</label>
+                  <div className="textarea-footer">
+                      <div className="char-count" >0 / 200 characters</div>
+                      <div className="textarea-error-message" ></div>
+                  </div>
+                </div>
+              </fieldset>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="btn btn-cancel">Close</button>   
+            <button type='submit' className="btn btn-submit">Save</button>
+          </Modal.Footer>
+        </form>
+      </Modal>
     </>
   );
 }
