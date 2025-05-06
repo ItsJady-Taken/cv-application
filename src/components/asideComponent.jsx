@@ -413,10 +413,50 @@ function ExperienceSection({ addExperienceToList }) {
 }
  
 function EducationSection() {
-  const [showModal, setShowModal] = useState(false);
+  const [educationlist, setEducationlist] = useState([]);
+  const [schoolName, setSchoolName] = useState('');
 
+  // error messages
+  const [schoolNameError, setSchoolNameError] = useState('');
+
+  // reset all usestate value in modal
+  const clearAll = () => {
+    setSchoolName('');
+    setSchoolNameError('');
+  }
+
+  // displaying the modal
+  const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+
+  // handle validation input
+  const handleSchoolName = (e) => {
+    if (e.target.value.trim().length > 45) {
+      setSchoolNameError("# Don't make it too long");
+    }
+    else {
+      setSchoolNameError('');
+      setSchoolName(e.target.value);
+    }
+  }
+  // submit modal form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (schoolName.trim().length > 45) {
+      setSchoolNameError("# Don't make it too long");
+    }
+    else {
+      const educationDetails = {
+        schoolName: schoolName,
+      }
+
+      clearAll();
+      setShowModal(false);
+      setEducationlist([...educationlist, educationDetails]);
+    }
+  }
 
   return (
     <>
@@ -431,11 +471,12 @@ function EducationSection() {
         <Modal.Header>
           <Modal.Title>YOUR EDUCATION DETAILS</Modal.Title>
         </Modal.Header>
-        <form className='modal-form'>
+        <form className='modal-form' onSubmit={handleSubmit}>
           <Modal.Body>
             <fieldset className='modal-fieldset'>
               <legend>Education Details</legend>
-              <CustomInput idValue="school-input" textLabel="School Name" inputType="text" />
+              <CustomInput idValue="school-input" textLabel="School Name" inputType="text" 
+              value={schoolName} onChange={handleSchoolName} error={schoolNameError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
               <CustomInput idValue="field-input" textLabel="University Location" inputType="text" />
               <CustomInput idValue="degree-input" textLabel="Degree" inputType="text" />
 

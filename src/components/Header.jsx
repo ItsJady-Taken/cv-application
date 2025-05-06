@@ -2,8 +2,11 @@
 export default function Header () {
     return (
         <header className="header">
-            <h1>CV Application</h1>
-            <p>Genarate Your CV In Minutes</p>
+            <div>
+                <h1>CV Application</h1>
+                <p>Build Your CV In Minutes</p>
+            </div>
+            
         </header>
     )
 }
