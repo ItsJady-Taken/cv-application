@@ -6,7 +6,6 @@
     min-height: 100vh;
     max-width: 600px; /* Keep max-width */
     width: 100%; /* Allow it to take full width up to max-width */
-    max-width: 600px;
 }
 
 .skill-section-container,
@@ -16,14 +15,16 @@
 
 .custom-input-container > p,
 .skill-section-container > p,
-.experience-section-container > p {
+.experience-section-container > p,
+.education-section-container > p {
     font-size: 32px;
     font-weight: lighter;
     font-style: italic;
 }
 .custom-input-container > p > span,
 .skill-section-container > p > span,
-.experience-section-container > p > span {
+.experience-section-container > p > span,
+.education-section-container > p > span {
     color: rgb(230, 44, 44);
 }
 

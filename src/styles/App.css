@@ -32,8 +32,8 @@
 /* --- Resume Style --- */
 
 .resume-container {
-    margin-top: 18px;
-    margin-left: 34px;
+    margin-top: 16px;
+    margin-left: 32px;
     padding: 18px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     max-width: 800px;
@@ -79,7 +79,7 @@
 .resume-experience-container > p,
 .resume-education-container > p {
     margin: 8px 0;
-    font-size: 18px;
+    font-size: 20px;
     font-style: oblique;
     font-weight: bold;
 }
@@ -120,7 +120,7 @@
 }
 
 .resume-experience-date {
-    font-size: 14px;
+    font-size: 1em;
     font-style: oblique;
 }
 
@@ -131,9 +131,8 @@
 }
 
 .resume-experience-company-text {
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: bold;
-    font-style: italic;
 }   
 
 .resume-experience-position-text {
@@ -143,7 +142,13 @@
 
 /* --- Education Style --- */
 
-
+.resume-education-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    top: 10px;
+}
 
 @media screen and (max-width: 768px) {
     .main-content-container {

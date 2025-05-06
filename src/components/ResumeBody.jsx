@@ -17,7 +17,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         <li key={index}>{skill},</li>
                     )) : (
                         <>
-                            <li>Example:</li>
+                            <li><strong>Example:</strong></li>
                             <li>html,</li>
                             <li>css,</li>
                             <li>javascript,</li>
@@ -117,7 +117,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                 </div>
                 <div className="resume-degrees-info">
                     <p>[Degrees]</p>
-                    <p><strong>Relevant Coursework:</strong>[List of relevant coursework]</p>
+                    <p><strong>Relevant Coursework:</strong><span>[List of relevant coursework]</span></p>
                 </div>
             </div>
 

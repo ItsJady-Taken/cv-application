@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SkillSection, ExperienceSection } from './asideComponent';
+import { SkillSection, ExperienceSection, EducationSection } from './asideComponent';
 
 function CustomInput ({idValue, textLabel, inputType, value, onChange, error, onKeyDown}) {
     const [isFocused, setIsFocused] = useState(false);
@@ -125,6 +125,10 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList, expInf
             <div className="experience-section-container">
                 <p>Experience<span>*</span></p>
                 <ExperienceSection addExperienceToList={handleAddExperience} />
+            </div>
+            <div className="education-section-container">
+                <p>Education<span>*</span></p>
+                <EducationSection />
             </div>
         </aside>  
     )

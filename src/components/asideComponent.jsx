@@ -319,7 +319,6 @@ function ExperienceSection({ addExperienceToList }) {
   return (
     <>
     <div>
-      <div className='experience-error'></div>
       <button className='show-input-btn' onClick={handleShow}>
           +Add Experience
       </button>
@@ -417,6 +416,19 @@ function ExperienceSection({ addExperienceToList }) {
   );
 }
  
+function EducationSection() {
+  return (
+    <>
+       <div>
+      <div className='experience-error'></div>
+      <button className='show-input-btn' >
+          +Add Education
+      </button>
+    </div>
+    </>
+  );
+}
+
 
 function ToggleSwitch({idValue, onChange, isChecked}) {
   return (
@@ -430,4 +442,4 @@ function ToggleSwitch({idValue, onChange, isChecked}) {
 
 
 
-export {SkillSection, ExperienceSection}
+export {SkillSection, ExperienceSection, EducationSection, ToggleSwitch}
