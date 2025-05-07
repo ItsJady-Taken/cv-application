@@ -264,6 +264,12 @@
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* --- Education Section Styling --- */
+.education-section-container {
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
 @media  screen and (max-width: 768px) {
     .aside {
         padding: 15px; /* Adjust padding for mobile */

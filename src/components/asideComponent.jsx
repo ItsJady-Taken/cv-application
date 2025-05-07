@@ -15,6 +15,7 @@ function SkillSection({ addSkillToList }) {
       }
 
   const handelErrorMessage = (value) => {
+     
       if (value.trim().length > 20) {
           setErrorMessage('# Maximum 20 characters allowed');
       }
@@ -31,12 +32,13 @@ function SkillSection({ addSkillToList }) {
 
   
   const handleInputValue = (e) => {
-      handelErrorMessage(e.target.value);
-      setInputValue(e.target.value);
+      handelErrorMessage(e.target.value.replace(/\s/g, ''));
+      setInputValue(e.target.value.replace(/\s/g, ''));
   }
 
   const handleAddSkill = (e) => {
       e.preventDefault();
+     
       if (inputValue.trim() === '' || inputValue.trim().length > 20 || skillList.includes(inputValue) || skillList.length >= 20) {
           return false;
       }
@@ -106,12 +108,6 @@ function ExperienceSection({ addExperienceToList }) {
   const [limitCount, setLimitCount] = useState(0);
   const [limitCount2, setLimitCount2] = useState(0);
   const [limitCount3, setLimitCount3] = useState(0);
-
-
-  // //prevnt default submit
-  // const handleCom = (e) => {
-  //   e.preventDefault();
-  // }
 
   // editing experience index
  const [editIndex, setEditIndex] = useState(null);
@@ -415,13 +411,21 @@ function ExperienceSection({ addExperienceToList }) {
 function EducationSection() {
   const [educationlist, setEducationlist] = useState([]);
   const [schoolName, setSchoolName] = useState('');
-
+  const [schoolLocation, setSchoolLocation] = useState('');
+  const [degree, setDegree] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   // error messages
   const [schoolNameError, setSchoolNameError] = useState('');
 
   // reset all usestate value in modal
   const clearAll = () => {
-    setSchoolName('');
+    setSchoolName(''); 
+    setSchoolLocation('');
+    setDegree('');
+    setStartDate('');
+    setEndDate('');
+
     setSchoolNameError('');
   }
 
@@ -433,7 +437,8 @@ function EducationSection() {
 
   // handle validation input
   const handleSchoolName = (e) => {
-    if (e.target.value.trim().length > 45) {
+    const noSpaceChar = e.target.value.replace(/\s/g, '').length;
+    if (noSpaceChar > 45) {
       setSchoolNameError("# Don't make it too long");
     }
     else {
@@ -444,12 +449,21 @@ function EducationSection() {
   // submit modal form
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (schoolName.trim().length > 45) {
-      setSchoolNameError("# Don't make it too long");
+    if (schoolName.trim() === '') {
+      setSchoolNameError("# University name required");
+    }
+    else if (educationlist.length >= 1) {
+      alert('You can only add one education details');
+      return false;
     }
     else {
       const educationDetails = {
         schoolName: schoolName,
+        schoolLocation: schoolLocation,
+        degree: degree,
+        startDate: startDate,
+        endDate: endDate
+
       }
 
       clearAll();
@@ -466,6 +480,14 @@ function EducationSection() {
       </button>
     </div>
 
+    <div className="education-section-container">
+      {educationlist.map((item, index) => (
+        <div className="education-item" key={index}>  
+          <h4>{item.schoolName}</h4>
+        </div>
+      ))}
+    </div>  
+
 
     <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header>
@@ -475,7 +497,7 @@ function EducationSection() {
           <Modal.Body>
             <fieldset className='modal-fieldset'>
               <legend>Education Details</legend>
-              <CustomInput idValue="school-input" textLabel="School Name" inputType="text" 
+              <CustomInput idValue="school-input" textLabel="University Name (required)" inputType="text" 
               value={schoolName} onChange={handleSchoolName} error={schoolNameError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
               <CustomInput idValue="field-input" textLabel="University Location" inputType="text" />
               <CustomInput idValue="degree-input" textLabel="Degree" inputType="text" />
@@ -511,8 +533,8 @@ function EducationSection() {
               </fieldset>
           </Modal.Body>
           <Modal.Footer>
-            <button className="btn btn-cancel">Close</button>   
-            <button type='submit' className="btn btn-submit">Save</button>
+            <button type="button" onClick={handleClose} className="btn btn-cancel">Close</button>   
+            <button type='submit' onClick={handleSubmit} className="btn btn-submit">Save</button>
           </Modal.Footer>
         </form>
       </Modal>
