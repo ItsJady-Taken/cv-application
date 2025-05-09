@@ -1,5 +1,5 @@
 
-function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoList = [] }) {
+function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoList = [], eduInfoList = [] }) {
     return (
         <section className='resume-container'>
             <div className="user-name">
@@ -35,8 +35,8 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                     
                     <div key={index} id={`resume-experience-item-${index}`} className="resume-experience-item">
                         <div className="resume-experience-info">
-                            <p className="resume-experience-tilte"><span className="resume-experience-company-text">{exp.Company} /</span>  <span className="resume-experience-position-text">{exp.Position}</span></p>
-                            <p className="resume-experience-date">{exp.StartDate || '[start date'} / {exp.EndDate || 'end date]'}</p>
+                            <p className="resume-experience-tilte"><span className="resume-experience-company-text">{exp.Company+':'}</span>  <span className="resume-experience-position-text">{exp.Position}</span></p>
+                            <p className="resume-experience-date">{exp.StartDate || '[start date]'} / {exp.EndDate || '[end date]'}</p>
                         </div>
                         <ul className="resume-experience-list">
                             <li><p>{exp.FirstContribution || '[reason 1]'}</p></li>
@@ -49,7 +49,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                     <>
                         <div>
                             <div className="resume-experience-info">
-                                <p>[company / position]</p>
+                                <p>[company: position]</p>
                                 <p>[start date / end date]</p>
                             </div>
 
@@ -61,7 +61,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         </div>
                         <div>
                             <div className="resume-experience-info">
-                                <p>[company / position]</p>
+                                <p>[company: position]</p>
                                 <p>[start date / end date]</p>
                             </div>
 
@@ -73,7 +73,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         </div>
                         <div>
                             <div className="resume-experience-info">
-                                <p>[company / position]</p>
+                                <p>[company: position]</p>
                                 <p>[start date / end date]</p>
                             </div>
 
@@ -85,7 +85,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         </div>
                         <div>
                             <div className="resume-experience-info">
-                                <p>[company / position]</p>
+                                <p>[company: position]</p>
                                 <p>[start date / end date]</p>
                             </div>
 
@@ -97,7 +97,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         </div>
                         <div>
                             <div className="resume-experience-info">
-                                <p>[company / position]</p>
+                                <p>[company: position]</p>
                                 <p>[start date / end date]</p>
                             </div>
 
@@ -107,23 +107,40 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                                 <li>[reason 3]</li>
                             </ul>
                         </div>
-                    </> )}
+                    </> ) 
+                }
+            </div> 
                    
-            </div>
-            <div className="resume-education-container">
-                <p>Education:</p>
-                <div className="resume-education-info">
-                    <p>[University Name || University Location]</p>
-                    <p>[start date / end date]</p>
+            {eduInfoList.length > 0 ? eduInfoList.map((edu, index) => (
+                <div key={index} className="resume-education-container">
+                    <p>Education:</p>
+                    <div className="resume-education-info">
+                        <p><strong>{edu.SchoolName}</strong> || {edu.SchoolLocation || '[University Location]'}</p>
+                        <p><em>{edu.StartDate || '[start date]'} / {edu.EndDate || '[end date]'}</em></p>
+                    </div>
+                    <div className="resume-degrees-info">
+                        <p>{edu.Degree}</p>
+                        <p><strong>Relevant Coursework:</strong><span></span></p>
+                    </div>
                 </div>
-                <div className="resume-degrees-info">
-                    <p>[Degrees]</p>
-                    <p><strong>Relevant Coursework:</strong><span>[<strong>Example:</strong> Data Structures and Algorithms, Web Development,...]</span></p>
+            )) : (
+                <div className="resume-education-container">
+                    <p>Education:</p>
+                    <div className="resume-education-info">
+                        <p>[University Name || University Location]</p>
+                        <p>[start date / end date]</p>
+                    </div>
+                    <div className="resume-degrees-info">
+                        <p>[Degrees]</p>
+                        <p><strong>Relevant Coursework:</strong><span>[<strong>Example:</strong> Data Structures and Algorithms, Web Development,...]</span></p>
+                    </div>
                 </div>
-            </div>
+            )}
+            
+             
 
         </section>
-    )
+    )    
 }
 
 export default ResumeBody;

@@ -408,7 +408,7 @@ function ExperienceSection({ addExperienceToList }) {
   );
 }
  
-function EducationSection() {
+function EducationSection({ addEducationToList }) {
   const [educationlist, setEducationlist] = useState([]);
   const [schoolName, setSchoolName] = useState('');
   const [schoolLocation, setSchoolLocation] = useState('');
@@ -458,17 +458,18 @@ function EducationSection() {
     }
     else {
       const educationDetails = {
-        schoolName: schoolName,
-        schoolLocation: schoolLocation,
-        degree: degree,
-        startDate: startDate,
-        endDate: endDate
+        SchoolName: schoolName,
+        SchoolLocation: schoolLocation,
+        Degree: degree,
+        StartDate: startDate,
+        EndDate: endDate
 
       }
 
       clearAll();
       setShowModal(false);
       setEducationlist([...educationlist, educationDetails]);
+      addEducationToList([...educationlist, educationDetails]);
     }
   }
 
@@ -483,7 +484,7 @@ function EducationSection() {
     <div className="education-section-container">
       {educationlist.map((item, index) => (
         <div className="education-item" key={index}>  
-          <h4>{item.schoolName}</h4>
+          <h4>{item.SchoolName}</h4>
         </div>
       ))}
     </div>  
@@ -499,22 +500,24 @@ function EducationSection() {
               <legend>Education Details</legend>
               <CustomInput idValue="school-input" textLabel="University Name (required)" inputType="text" 
               value={schoolName} onChange={handleSchoolName} error={schoolNameError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
-              <CustomInput idValue="field-input" textLabel="University Location" inputType="text" />
-              <CustomInput idValue="degree-input" textLabel="Degree" inputType="text" />
+              <CustomInput idValue="field-input" textLabel="University Location" inputType="text"
+              value={schoolLocation} onChange={(e) => setSchoolLocation(e.target.value)} />
+              <CustomInput idValue="degree-input" textLabel="Degree" inputType="text" 
+              value={degree} onChange={(e) => setDegree(e.target.value)}/>
 
                 
               <div className="modal-date-container">
                   <div className="date-form-group">
                   <label htmlFor="start-date" className="date-input-label">Start Date</label>
                     <div className="date-input-container">
-                      <input type="date" id="start-date" className="date-input" 
+                      <input type="date" id="start-date" className="date-input" value={startDate} onChange={(e) => setStartDate(e.target.value)}
                       onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
                     </div>
                   </div>
                   <div className="date-form-group">
                     <label htmlFor="end-date" className="date-input-label">End Date</label>
                     <div className="date-input-container">
-                      <input type="date" id="end-date" className="date-input" 
+                      <input type="date" id="end-date" className="date-input" value={endDate} onChange={(e) => setEndDate(e.target.value)}
                       onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
                     </div>
                   </div>
