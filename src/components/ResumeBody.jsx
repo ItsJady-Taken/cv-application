@@ -119,8 +119,8 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         <p><em>{edu.StartDate || '[start date]'} / {edu.EndDate || '[end date]'}</em></p>
                     </div>
                     <div className="resume-degrees-info">
-                        <p>{edu.Degree}</p>
-                        <p><strong>Relevant Coursework:</strong><span></span></p>
+                        <p style={{whiteSpace: 'normal', wordWrap: 'break-word'}}>{edu.Degree}</p>
+                        <p><strong>Relevant Coursework:</strong><span style={{whiteSpace: 'normal', wordWrap: 'break-word'}}> {edu.CourseWork || `[Example: Data Structures and Algorithms, Web Development,...]`}</span></p>
                     </div>
                 </div>
             )) : (
@@ -132,7 +132,7 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                     </div>
                     <div className="resume-degrees-info">
                         <p>[Degrees]</p>
-                        <p><strong>Relevant Coursework:</strong><span>[<strong>Example:</strong> Data Structures and Algorithms, Web Development,...]</span></p>
+                        <p style={{whiteSpace: 'normal', wordWrap: 'break-word'}}><strong>Relevant Coursework:</strong><span> [<strong>Example:</strong> Data Structures and Algorithms, Web Development,...]</span></p>
                     </div>
                 </div>
             )}

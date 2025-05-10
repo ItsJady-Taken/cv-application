@@ -415,8 +415,14 @@ function EducationSection({ addEducationToList }) {
   const [degree, setDegree] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [courseWorkValue, setCourseWorkValue] = useState('');
+
+  const [editEdu, setEditEdu] = useState(null);
+
   // error messages
   const [schoolNameError, setSchoolNameError] = useState('');
+  const [schoolLocationError, setSchoolLocationError] = useState('');
+  const [schoolDegreeError, setSchoolDegreeError] = useState('');
 
   // reset all usestate value in modal
   const clearAll = () => {
@@ -427,34 +433,75 @@ function EducationSection({ addEducationToList }) {
     setEndDate('');
 
     setSchoolNameError('');
+    setSchoolLocationError('');
+    setSchoolDegreeError('');
   }
 
   // displaying the modal
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleShow = () => {
+    if (educationlist.length >= 1) {
+      alert('You can only add one education details');
+      return false;
+    }
+    clearAll();
+    setEditEdu(null);
+    setShowModal(true);
+  }
 
+  const handleEdit = (editIndex) => {
+    let edu = educationlist[editIndex];
+    setSchoolName(edu.SchoolName);
+    setSchoolLocation(edu.SchoolLocation);
+    setDegree(edu.Degree);
+    setStartDate(edu.StartDate);
+    setEndDate(edu.EndDate);
+    setCourseWorkValue(edu.CourseWork);
+    setEditEdu(editIndex);
+
+    setShowModal(true);
+  }
 
   // handle validation input
   const handleSchoolName = (e) => {
     const noSpaceChar = e.target.value.replace(/\s/g, '').length;
-    if (noSpaceChar > 45) {
-      setSchoolNameError("# Don't make it too long");
+    if (noSpaceChar > 30) {
+      setSchoolNameError("# Your University's name is too long. Please shorten it to under 30 characters");
     }
     else {
       setSchoolNameError('');
       setSchoolName(e.target.value);
     }
   }
+
+  const handleSchoolLocation = (e) => {
+    const noSpaceChar = e.target.value.replace(/\s/g, '').length;
+    if (noSpaceChar > 30) {
+      setSchoolLocationError("# University location is too long. Please shorten it to under 30 characters");
+    }
+    else {
+      setSchoolLocationError('');
+      setSchoolLocation(e.target.value);
+    }
+  }
+
+  const handleDegree = (e) => {
+    const noSpaceChar = e.target.value.replace(/\s/g, '').length;
+    if (noSpaceChar > 50) {
+      setSchoolDegreeError("# No way! Your degree is this long? Please shorten it to under 30 characters");
+    }
+    else {
+      setSchoolDegreeError('');
+      setDegree(e.target.value);
+    }
+  }
+
   // submit modal form
   const handleSubmit = (e) => {
     e.preventDefault();
     if (schoolName.trim() === '') {
-      setSchoolNameError("# University name required");
-    }
-    else if (educationlist.length >= 1) {
-      alert('You can only add one education details');
-      return false;
+      setSchoolNameError("# Enter your University name");
     }
     else {
       const educationDetails = {
@@ -462,14 +509,25 @@ function EducationSection({ addEducationToList }) {
         SchoolLocation: schoolLocation,
         Degree: degree,
         StartDate: startDate,
-        EndDate: endDate
+        EndDate: endDate,
+        CourseWork: courseWorkValue
 
       }
 
+      let updatedList;
+      if(editEdu !== null) {
+         updatedList = educationlist.map((edu, index) =>
+          index === editEdu ? educationDetails : edu
+        );}
+      else {
+        updatedList = [...educationlist, educationDetails];
+         
+      }
+      setEducationlist(updatedList);
+      addEducationToList(updatedList);
+    
       clearAll();
       setShowModal(false);
-      setEducationlist([...educationlist, educationDetails]);
-      addEducationToList([...educationlist, educationDetails]);
     }
   }
 
@@ -484,7 +542,7 @@ function EducationSection({ addEducationToList }) {
     <div className="education-section-container">
       {educationlist.map((item, index) => (
         <div className="education-item" key={index}>  
-          <h4>{item.SchoolName}</h4>
+          <div className="education-item-name"><p>{item.SchoolName}</p> <button onClick={() => handleEdit(index)}>Edit</button></div>
         </div>
       ))}
     </div>  
@@ -497,13 +555,15 @@ function EducationSection({ addEducationToList }) {
         <form className='modal-form' onSubmit={handleSubmit}>
           <Modal.Body>
             <fieldset className='modal-fieldset'>
-              <legend>Education Details</legend>
+              <legend>Your University/School name, location, degree and graduation date</legend>
               <CustomInput idValue="school-input" textLabel="University Name (required)" inputType="text" 
               value={schoolName} onChange={handleSchoolName} error={schoolNameError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}}/>
+
               <CustomInput idValue="field-input" textLabel="University Location" inputType="text"
-              value={schoolLocation} onChange={(e) => setSchoolLocation(e.target.value)} />
+              value={schoolLocation} onChange={handleSchoolLocation} error={schoolLocationError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
+              
               <CustomInput idValue="degree-input" textLabel="Degree" inputType="text" 
-              value={degree} onChange={(e) => setDegree(e.target.value)}/>
+              value={degree} onChange={handleDegree} error={schoolDegreeError} onKeyDown={(e) => {if (e.key === 'Enter')e.preventDefault();}} />
 
                 
               <div className="modal-date-container">
@@ -524,14 +584,10 @@ function EducationSection({ addEducationToList }) {
                 </div>
               </fieldset>
               <fieldset className='modal-fieldset'>
-                <legend>Contribution Details</legend>
+                <legend>Relavant Coursework</legend>
                 <div className="textarea-wrapper">
-                  <textarea id="contro-textarea-3" className="textarea" placeholder=" "></textarea>
-                  <label htmlFor="contro-textarea-3" className="textarea-label">Write a description of your third contribution...</label>
-                  <div className="textarea-footer">
-                      <div className="char-count" >0 / 200 characters</div>
-                      <div className="textarea-error-message" ></div>
-                  </div>
+                  <textarea id="contro-textarea-3" className="textarea" placeholder=" " value={courseWorkValue} onChange={(e) => setCourseWorkValue(e.target.value)}></textarea>
+                  <label htmlFor="contro-textarea-3" className="textarea-label"><strong>Example:</strong> Data Science, Machine Learning, Artificial Intelligence, etc...</label>
                 </div>
               </fieldset>
           </Modal.Body>
