@@ -15,11 +15,11 @@ function SkillSection({ addSkillToList }) {
       }
 
   const handelErrorMessage = (value) => {
-     
-      if (value.trim().length > 20) {
+    const noSpaceChar = value.replace(/\s/g, '');
+      if (noSpaceChar.trim().length > 20) {
           setErrorMessage('# Maximum 20 characters allowed');
       }
-      else if (skillList.includes(value)) {
+      else if (skillList.includes(noSpaceChar)) {
           setErrorMessage('# Skill already added');
       }
       else if (skillList.length >= 20) {
@@ -32,8 +32,8 @@ function SkillSection({ addSkillToList }) {
 
   
   const handleInputValue = (e) => {
-      handelErrorMessage(e.target.value.replace(/\s/g, ''));
-      setInputValue(e.target.value.replace(/\s/g, ''));
+    handelErrorMessage(e.target.value);
+    setInputValue(e.target.value);
   }
 
   const handleAddSkill = (e) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './styles/App.css'
 import './styles/aside.css'
 import './styles/modal.css'
@@ -14,12 +14,16 @@ function App() {
   const [skillsList, setSkillsList] = useState([]);
   const [expInfoList, setExpInfoList] = useState([]);
   const [eduInfoList, setEduInfoList] = useState([]);
+
+  const resumeRef = useRef(null); // create a ref object
+
+
   return (
     <>
-     <Header />
+     <Header resumeBodyRef={resumeRef} />
       <main className='main-content-container'>
         <Aside onChangeName={setName} onChangeEmail={setEmail} onChangePhone={setPhone} skillsList={setSkillsList}  expInfoList={setExpInfoList} eduInfoList={setEduInfoList} />
-        <ResumeBody userName={name} userEmail={email} userPhone={phone} skillsList={skillsList} expInfoList={expInfoList} eduInfoList={eduInfoList} />
+        <ResumeBody ref={resumeRef} userName={name} userEmail={email} userPhone={phone} skillsList={skillsList} expInfoList={expInfoList} eduInfoList={eduInfoList} />
       </main> 
         
     </>

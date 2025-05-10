@@ -1,7 +1,8 @@
+import { forwardRef } from "react";
 
-function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoList = [], eduInfoList = [] }) {
+const ResumeBody = forwardRef(function ResumeBodySection ({ userName, userEmail, userPhone, skillsList = [], expInfoList = [], eduInfoList = [] }, ref)  {
     return (
-        <section className='resume-container'>
+        <section ref={ref} className='resume-container'>
             <div className="user-name">
                 <h1>{userName || 'Your Name'}</h1>
             </div>
@@ -119,8 +120,8 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
                         <p><em>{edu.StartDate || '[start date]'} / {edu.EndDate || '[end date]'}</em></p>
                     </div>
                     <div className="resume-degrees-info">
-                        <p style={{whiteSpace: 'normal', wordWrap: 'break-word'}}>{edu.Degree}</p>
-                        <p><strong>Relevant Coursework:</strong><span style={{whiteSpace: 'normal', wordWrap: 'break-word'}}> {edu.CourseWork || `[Example: Data Structures and Algorithms, Web Development,...]`}</span></p>
+                        <p style={{whiteSpace: 'normal', wordWrap: 'break-word'}}><em>{edu.Degree}</em></p>
+                        <p style={{paddingLeft: '40px', whiteSpace: 'normal', wordWrap: 'break-word'}}><strong>Relevant Coursework:</strong><span style={{whiteSpace: 'normal', wordWrap: 'break-word'}}> {edu.CourseWork || `[Example: Data Structures and Algorithms, Web Development,...]`}</span></p>
                     </div>
                 </div>
             )) : (
@@ -141,6 +142,6 @@ function ResumeBody({ userName, userEmail, userPhone, skillsList = [], expInfoLi
 
         </section>
     )    
-}
+})
 
 export default ResumeBody;

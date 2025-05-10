@@ -127,6 +127,8 @@
 .resume-experience-list > li > p {
     white-space: normal;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
     margin-bottom: 2px;
 }
 
@@ -150,6 +152,16 @@
     top: 10px;
 }
 
+.resume-degree-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+    
+
+
 @media screen and (max-width: 768px) {
     .main-content-container {
         grid-template-columns: 1fr;
@@ -168,8 +180,9 @@
     }
     
     .header {
-        flex-direction: column; /* Stack header items */
+        /* flex-direction: column; Stack header items */
         align-items: flex-start;
+        flex-wrap: wrap;
         gap: 5px;
     }
 
