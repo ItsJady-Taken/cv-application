@@ -34,10 +34,15 @@
 .resume-container {
     margin-top: 16px;
     margin-left: 32px;
+    margin-bottom: 50px;
     padding: 18px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     max-width: 800px;
-    margin-bottom: 50px;
+    width: fit-content;
+    box-sizing: border-box;
+    /* justify-self: center;
+    align-self: flex-start; */
+    /* margin: 0 auto; */
 
 }
 
@@ -100,6 +105,7 @@
 .resume-experience-container {
     margin-bottom: 10px;
     border-bottom: 2px solid #1a1818;
+    /* margin: 0 auto; */
 }
 
 
@@ -173,10 +179,13 @@
         height: auto;
     }
     .resume-container {
-        margin-left: 0;
-        margin-top: 0;
-        width: 100%; /* Take full width */
-        max-width: none; /* Remove max-width restriction */
+        /* margin-left: 0;
+        margin-top: 0; */
+        margin: 0 auto;
+        width: fit-content; /* Take full width */
+        max-width: none;
+        justify-self: center;
+        align-self: start; /* Ensure vertical alignment */
     }
     
     .header {
@@ -229,3 +238,27 @@
         font-size: 12px;
     }
 }
+
+
+@page {
+    size: A4 portrait;
+    /* margin: 0; */
+  }
+
+@media print {
+    body * {
+        visibility: hidden;              /* hide all page content */
+      }
+      .resume-container, 
+      .resume-container * {
+        visibility: visible;             /* but make resume visible */
+      }
+      .resume-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;                     /* use full page width */
+        box-shadow: none;                /* drop shadows for clean print */
+        margin: 0;
+        padding: 0;
+      }}

@@ -48,7 +48,11 @@ function Aside ({ onChangeName, onChangeEmail, onChangePhone, skillsList, expInf
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
             setEmailError('# Invalid email address (username@example.com)');
             return false;
-        } else {
+        } else if (value.length > 45){
+            setEmailError('# Maximum 45 characters allowed');
+            return false;
+        }
+         else {
             setEmailError('');
             return true;
         }
