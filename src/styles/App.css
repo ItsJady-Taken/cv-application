@@ -38,7 +38,7 @@
     padding: 18px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     max-width: 800px;
-    width: fit-content;
+    width: 100%;
     box-sizing: border-box;
     /* justify-self: center;
     align-self: flex-start; */
@@ -179,10 +179,8 @@
         height: auto;
     }
     .resume-container {
-        /* margin-left: 0;
-        margin-top: 0; */
-        margin: 0 auto;
-        width: fit-content; /* Take full width */
+        margin: 14px auto;
+        width: 100%; /* Take full width */
         max-width: none;
         justify-self: center;
         align-self: start; /* Ensure vertical alignment */
